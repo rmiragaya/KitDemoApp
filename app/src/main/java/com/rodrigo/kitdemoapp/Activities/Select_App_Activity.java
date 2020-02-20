@@ -1,0 +1,209 @@
+package com.rodrigo.kitdemoapp.Activities;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.airbnb.lottie.LottieAnimationView;
+import com.rodrigo.kitdemoapp.Models.Demo;
+import com.rodrigo.kitdemoapp.R;
+import com.rodrigo.kitdemoapp.Utils.Tools;
+
+public class Select_App_Activity extends AppCompatActivity {
+    private static final String TAG = "Select_App_Activity";
+
+    private static final int MAX_STEP = 4;
+    private ViewPager viewPager;
+    private MyViewPagerAdapter myViewPagerAdapter;
+    private View cargandoProgresBar;
+
+    private String about_title_array[] = {
+            "Apertura de Cuenta",
+            "Clasificación de Documentos",
+            "Captura de Firma",
+            "Impresión de Documentos"
+    };
+
+    private String about_description_array[] = {
+            "Cargue la documentación de sus clientes de forma rápida y sencilla.",
+            "Direccione sus documentos de forma dinámica mediante la lectura de códigos de Barra/QR.",
+            "Recorte la firma de sus clientes plasmadas en formularios de manera dinámica.",
+            "Accede a la cuenta e imprime la documentación previamente ingresada"
+    };
+
+    private String about_images_array[] = {
+            "abrir_cuenta.json",
+            "qr.json",
+            "firma.json",
+            "print.json"
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.select_app_layout);
+
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+            finish();
+        }
+
+        /* For Testing */
+        Demo demo =  Tools.getDemoFromSharePreference(this);
+        Log.d(TAG, "demo en la nueva Activity: " + demo.toString());
+
+        cargandoProgresBar = findViewById(R.id.selectAppProgressDialog);
+
+        viewPager = findViewById(R.id.view_pager);
+        // adding bottom dots
+        bottomProgressDots(0);
+
+        myViewPagerAdapter = new MyViewPagerAdapter();
+        viewPager.setAdapter(myViewPagerAdapter);
+        viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
+        viewPager.setCurrentItem(Tools.getViewPagerPosition(this));
+    }
+
+    private void bottomProgressDots(int current_index) {
+        LinearLayout dotsLayout = findViewById(R.id.layoutDots);
+        ImageView[] dots = new ImageView[MAX_STEP];
+
+        dotsLayout.removeAllViews();
+        for (int i = 0; i < dots.length; i++) {
+            dots[i] = new ImageView(this);
+            int width_height = 15;
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(width_height, width_height));
+            params.setMargins(10, 10, 10, 10);
+            dots[i].setLayoutParams(params);
+            dots[i].setImageResource(R.drawable.shape_circle);
+            dots[i].setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+            dotsLayout.addView(dots[i]);
+        }
+
+        if (dots.length > 0) {
+            dots[current_index].setImageResource(R.drawable.shape_circle);
+            dots[current_index].setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
+        }
+    }
+
+    //  viewpager change listener
+    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
+
+        @Override
+        public void onPageSelected(final int position) {
+            bottomProgressDots(position);
+        }
+
+        @Override
+        public void onPageScrolled(int arg0, float arg1, int arg2) {
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int arg0) {
+        }
+    };
+
+    /**
+     * View pager adapter
+     */
+    public class MyViewPagerAdapter extends PagerAdapter {
+        private LayoutInflater layoutInflater;
+        private Button btnNext;
+
+        public MyViewPagerAdapter() {
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            View view = layoutInflater.inflate(R.layout.item_card_wizard_light, container, false);
+            ((TextView) view.findViewById(R.id.title)).setText(about_title_array[position]);
+            ((TextView) view.findViewById(R.id.description)).setText(about_description_array[position]);
+            ((LottieAnimationView) view.findViewById(R.id.image)).setAnimation(about_images_array[position]);
+
+            btnNext = view.findViewById(R.id.btn_next);
+
+            btnNext.setText(getResources().getString(R.string.abrir));
+
+            //cada slide abre cada app!!!
+            btnNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    cargandoDialog();
+
+                    int current = viewPager.getCurrentItem();
+
+                    Intent intent;
+                    switch (current) {
+                        case 0:
+                            intent = new Intent(v.getContext(), AperturaCuentaMainActivity.class);
+                            startActivity(intent);
+                            finish();
+                            break;
+                        case 1:
+//                            intent = new Intent(v.getContext(), CodigoBarraYQRActivity.class);
+//                            startActivity(intent);
+//                            finish();
+                            break;
+                        case 2:
+//                            intent = new Intent(v.getContext(), RecorteDeFirmaActivity.class);
+//                            startActivity(intent);
+//                            finish();
+                            break;
+                        case 3:
+                            //carga documentos para luego mandarlos a Preview Activity
+//                            getListaDocumentos();
+                            break;
+                    }
+
+                    Tools.saveViewPagerPosition(getApplicationContext(), current);
+
+                }
+
+            });
+
+            container.addView(view);
+            return view;
+        }
+
+        @Override
+        public int getCount() {
+            return about_title_array.length;
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object obj) {
+            return view == obj;
+        }
+
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            View view = (View) object;
+            container.removeView(view);
+        }
+    }
+
+    private void cargandoDialog() {
+        if (cargandoProgresBar.getVisibility() == View.GONE) {
+            cargandoProgresBar.setVisibility(View.VISIBLE);
+        } else {
+            cargandoProgresBar.setVisibility(View.GONE);
+        }
+    }
+}

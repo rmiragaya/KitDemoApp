@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">KitDemoApp</string>
+    <string name="post">Post</string>
+    <string name="long_lorem_ipsum">asdASDasdadasd asd asd asd asd asd asd asd asd</string>
+    <string name="company_default_name">HP</string>
+    <string name="cargar_imagen">Cargar Imagen</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="token_editText">Token</string>
+    <string name="new_token_tittle">Agregue el Token de la demo</string>
+
+    <string name="token_no_activo">El token no se encuentra activo. Por favor contactarse con la mesa de ayuda.</string>
+    <string name="token_expirado">El token se encuentra expirado. Por favor contactarse con la mesa de ayuda.</string>
+    <string name="error_conexion">Error de conexión. Verifique la red y configuración</string>
+    <string name="error_demo">Error de la Demo</string>
+    <string name="abrir">Abrir</string>
+</resources>
