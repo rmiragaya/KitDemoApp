@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Textos -->
+    <dimen name="titulos">24sp</dimen>
+    <dimen name="subtitulos">18sp</dimen>
+
+    <!-- Tamaño Cards -->
+    <dimen name="alto_card">200dp</dimen>
+    <dimen name="ancho_card">18dp</dimen>
+</resources>

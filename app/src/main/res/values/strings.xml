@@ -13,4 +13,20 @@
     <string name="error_conexion">Error de conexión. Verifique la red y configuración</string>
     <string name="error_demo">Error de la Demo</string>
     <string name="abrir">Abrir</string>
+    <string name="informacion_de_cliente">Información de Cliente</string>
+    <string name="nombre_raz_social">Nombre ó Razón Social</string>
+    <string name="email">Email</string>
+    <string name="sexo">Sexo</string>
+    <string name="femenino">Femenino</string>
+    <string name="masculino">Masculino</string>
+    <string name="no_especifica">No especifica</string>
+    <string name="pais">País</string>
+    <string name="fecha">Fecha</string>
+    <string name="buscar_cliente">Buscar Cliente</string>
+    <string name="escanear">Escanear</string>
+    <string name="filiatorios">Filiatorios</string>
+    <string name="productos">Productos</string>
+    <string name="qr_y_barcode">Qr y Barcode</string>
+    <string name="recorte_de_firma">Recorte de Firma</string>
+    <string name="ejemplos">Ejemplos</string>
 </resources>

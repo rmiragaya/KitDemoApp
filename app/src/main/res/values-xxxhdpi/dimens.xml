@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Textos -->
+    <dimen name="titulos">24sp</dimen>
+    <dimen name="subtitulos">18sp</dimen>
+</resources>

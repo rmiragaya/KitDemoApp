@@ -1,6 +1,8 @@
 package com.rodrigo.kitdemoapp.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -9,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +20,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.rodrigo.kitdemoapp.Models.Demo;
+import com.rodrigo.kitdemoapp.Models.Document;
+import com.rodrigo.kitdemoapp.Models.DocumentRepoResponse;
 import com.rodrigo.kitdemoapp.R;
+import com.rodrigo.kitdemoapp.StatusResponse;
 import com.rodrigo.kitdemoapp.Utils.Tools;
+import com.rodrigo.kitdemoapp.ViewModel.SelectAppVM;
+
+import java.util.ArrayList;
 
 public class Select_App_Activity extends AppCompatActivity {
     private static final String TAG = "Select_App_Activity";
@@ -30,6 +40,7 @@ public class Select_App_Activity extends AppCompatActivity {
     private ViewPager viewPager;
     private MyViewPagerAdapter myViewPagerAdapter;
     private View cargandoProgresBar;
+    private SelectAppVM selectAppVM;
 
     private String about_title_array[] = {
             "Apertura de Cuenta",
@@ -64,17 +75,19 @@ public class Select_App_Activity extends AppCompatActivity {
         /* For Testing */
         Demo demo =  Tools.getDemoFromSharePreference(this);
         Log.d(TAG, "demo en la nueva Activity: " + demo.toString());
+        /* For Testing */
 
         cargandoProgresBar = findViewById(R.id.selectAppProgressDialog);
-
         viewPager = findViewById(R.id.view_pager);
+
         // adding bottom dots
         bottomProgressDots(0);
-
         myViewPagerAdapter = new MyViewPagerAdapter();
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
-        viewPager.setCurrentItem(Tools.getViewPagerPosition(this));
+//        viewPager.setCurrentItem(Tools.getViewPagerPosition(this));
+
+        selectAppVM = ViewModelProviders.of(this).get(SelectAppVM.class);
     }
 
     private void bottomProgressDots(int current_index) {
@@ -156,27 +169,25 @@ public class Select_App_Activity extends AppCompatActivity {
                             finish();
                             break;
                         case 1:
-//                            intent = new Intent(v.getContext(), CodigoBarraYQRActivity.class);
-//                            startActivity(intent);
-//                            finish();
+                            intent = new Intent(v.getContext(), CodigoBarraYQRActivity.class);
+                            startActivity(intent);
+                            finish();
                             break;
                         case 2:
-//                            intent = new Intent(v.getContext(), RecorteDeFirmaActivity.class);
-//                            startActivity(intent);
-//                            finish();
+                            intent = new Intent(v.getContext(), RecorteDeFirmaActivity.class);
+                            startActivity(intent);
+                            finish();
                             break;
                         case 3:
                             //carga documentos para luego mandarlos a Preview Activity
-//                            getListaDocumentos();
+                            getListaDocumentos();
                             break;
                     }
-
-                    Tools.saveViewPagerPosition(getApplicationContext(), current);
+//                    Tools.saveViewPagerPosition(getApplicationContext(), current);
 
                 }
 
             });
-
             container.addView(view);
             return view;
         }
@@ -197,6 +208,41 @@ public class Select_App_Activity extends AppCompatActivity {
             View view = (View) object;
             container.removeView(view);
         }
+    }
+
+    private void getListaDocumentos() {
+        selectAppVM.init();
+        selectAppVM.getClienteResponseLiveData().observe(this, new Observer<DocumentRepoResponse>() {
+            @Override
+            public void onChanged(DocumentRepoResponse documentRepoResponse) {
+                cargandoDialog();
+                if (documentRepoResponse.getStatusResponse() == StatusResponse.OK){
+                    Log.d(TAG, "OK");
+                    startNextActivity(documentRepoResponse);
+                    return;
+                }
+
+                Log.d(TAG, "ERROR");
+                Toast.makeText(Select_App_Activity.this, getBaseContext().getResources().getString(R.string.error_conexion), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void startNextActivity(DocumentRepoResponse documentRepoResponse) {
+        //todo llamar proxima activity con el document response en bundle
+        Log.d(TAG, "startNextActivity: ok");
+        for (Document d : documentRepoResponse.getDocumentList()){
+            Log.d(TAG, "" + d.toString());
+        }
+
+
+        Intent intent = new Intent(this, DocumentPreviewActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("listaDocumentos", (ArrayList<? extends Parcelable>) documentRepoResponse.getDocumentList());
+        intent.putExtras(bundle);
+        startActivity(intent);
+        finish();
+
     }
 
     private void cargandoDialog() {

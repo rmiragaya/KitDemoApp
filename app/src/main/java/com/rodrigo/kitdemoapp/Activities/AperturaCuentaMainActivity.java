@@ -38,6 +38,7 @@ import com.rodrigo.kitdemoapp.Dialogs.DatePickerFragment;
 import com.rodrigo.kitdemoapp.Models.ClientRepoResponse;
 import com.rodrigo.kitdemoapp.Models.Cliente;
 import com.rodrigo.kitdemoapp.Models.Demo;
+import com.rodrigo.kitdemoapp.Models.MetadataClient;
 import com.rodrigo.kitdemoapp.Models.PaisItem;
 import com.rodrigo.kitdemoapp.R;
 import com.rodrigo.kitdemoapp.StatusResponse;
@@ -82,6 +83,8 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
         String nombreEmpresa = demo.getClient();
         String logoEnString = demo.getLogo();
 
+
+        //todo: tomar esto del VM
         if (nombreEmpresa!=null && !nombreEmpresa.isEmpty()){
             TextView nombreEmpresaTextView = findViewById(R.id.nombreEmpresa);
             nombreEmpresaTextView.setText(nombreEmpresa);
@@ -160,9 +163,9 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
                         startSerieDocuActivity();
                     }else {
                         Toast.makeText(AperturaCuentaMainActivity.this, "El mail no es válido", Toast.LENGTH_SHORT).show();
+                        mail.setError("no válido");
                     }
                 } else {
-                    //todo poner error en los editText
                     razonSocial.setError("Campo Obligatorio");
                     mail.setError("Campo Obligatorio");
                     Toast.makeText(AperturaCuentaMainActivity.this, "Llene todos los campos para continuar", Toast.LENGTH_SHORT).show();
@@ -185,13 +188,6 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
             }
         });
     }
-
-//    private void initToolbar() {
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setTitle("Apertura de Cuenta");
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//    }
 
     private void toggleFabMode(View v) {
         rotate = ViewAnimation.rotateFab(v, !rotate);
@@ -233,7 +229,7 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
 
     private boolean camposLLenos(){
         String mailParaVerificar =  mail.getText().toString();
-        return (razonSocial.getText().toString().isEmpty() || mailParaVerificar.isEmpty());
+        return (!razonSocial.getText().toString().isEmpty() || !mailParaVerificar.isEmpty());
     }
 
     private boolean esMailValido(CharSequence target){
@@ -253,21 +249,24 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
         String fecha = Tools.convertDateStringInDateTime(dateGuardada.getTime());
         Log.d(TAG, "fecha: " + fecha);
 
-//        MetadataCliente metadataCliente = new MetadataCliente(razonSocialIngresad,mailIngresado,sexoIngresado, paisSeleccionado,null, null, null, fecha);
-//        DemoViewModelSingleton.getInstance().setMetadataCliente(metadataCliente);
-//
-//        //si se buscó un id y fue encontrado, se lo pone como ClientName, sino se pone el nombre como Client Name
-//        if (!idClienteBuscado.isEmpty()){
-//            DemoViewModelSingleton.getInstance().getDemoViewModelGuardado().setClientNameNew(idClienteBuscado);
-//        } else {
-//            DemoViewModelSingleton.getInstance().getDemoViewModelGuardado().setClientNameNew(razonSocialIngresad);
-//        }
 
-        Log.d(TAG, " RazonSocial " + razonSocialIngresad +
-                " Mail " + mailIngresado +
-                " Sexo " + sexoIngresado +
-                " Pais " + paisSeleccionado +
-                " Fecha " + fecha);
+        MetadataClient metadataCliente = new MetadataClient(razonSocialIngresad,mailIngresado,sexoIngresado, paisSeleccionado,null, null, null, fecha);
+
+        // se guarda la Metadata
+        aperturaCuentaVM.saveMetadata(metadataCliente);
+        Demo demo = aperturaCuentaVM.getDemo();
+
+        // si se buscó un id y fue encontrado, se lo pone como ClientName, sino se pone el nombre como Client Name
+        if (!idClienteBuscado.isEmpty()){
+            demo.setClientNameNew(idClienteBuscado);
+        } else {
+            demo.setClientNameNew(razonSocialIngresad);
+        }
+
+        // se guarda la Demo
+//        aperturaCuentaVM.saveDemo(demo, this);
+        aperturaCuentaVM.saveDemo(demo);
+
     }
 
     private String getRadioBtnSelected() {
@@ -290,7 +289,6 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
     private void startSerieDocuActivity(){
         Intent intent = new Intent(this, SeleccionSerieDocumentalActivity.class);
         startActivity(intent);
-        finish();
     }
 
     @Override
@@ -316,7 +314,6 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
                     snackbar.getView().setBackgroundColor(ContextCompat.getColor(AperturaCuentaMainActivity.this, R.color.colorPrimary));
                     snackbar.show();
                     Log.d(TAG, "error call");
-                    //todo: cartel de error
                 }
                 closeKeyboard();
                 cargandoDialog();
@@ -333,8 +330,8 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
 
     private void closeKeyboard() {
         View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (view != null && imm !=null) {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }

@@ -6,12 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.rodrigo.kitdemoapp.Interfaces.IIntroVM;
 import com.rodrigo.kitdemoapp.Models.DemoRepoResponse;
 import com.rodrigo.kitdemoapp.Repo.DemoRepo;
 import com.rodrigo.kitdemoapp.Repo.SharedPreferenceRepo;
 import com.rodrigo.kitdemoapp.Utils.Tools;
 
-public class IntroVM extends AndroidViewModel {
+public class IntroVM extends AndroidViewModel implements IIntroVM {
 
     private SharedPreferenceRepo sharedPreferenceRepo;
     private LiveData<String> tokenSavedResponseLiveData;

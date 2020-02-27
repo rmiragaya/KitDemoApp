@@ -15,7 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.SeleccionSerieDocumentalActivity"></activity>
+        <activity android:name=".Activities.DocumentPreviewActivity"></activity>
+        <activity android:name=".Activities.RecorteDeFirmaActivity" />
+        <activity android:name=".Activities.CodigoBarraYQRActivity" />
+        <activity android:name=".Activities.SeleccionSerieDocumentalActivity" />
         <activity android:name=".Activities.Select_App_Activity" />
         <activity android:name=".Activities.IntroActivity">
             <intent-filter>

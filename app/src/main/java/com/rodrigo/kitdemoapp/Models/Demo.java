@@ -174,8 +174,9 @@ public class Demo {
 
     @Override
     public String toString() {
-        return "DemoViewModel{" +
+        return "Demo{" +
                 "id=" + id +
+                ", newName=" + clientNameNew +
                 ", tcId=" + tcId +
                 ", name='" + name + '\'' +
                 ", client='" + clientName + '\'' +

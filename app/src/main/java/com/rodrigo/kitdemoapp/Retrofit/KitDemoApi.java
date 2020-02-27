@@ -42,5 +42,8 @@ public interface KitDemoApi {
     @GET("Demos/GetDemoClientMetadata/{token}&{clientId}")
     Call<Cliente> getClient(@Path("token") String token, @Path("clientId") String clientId);
 
+//    @GET("Documents/GetDocuments/{token}")
+//    Call<List<Document>> getDocuments(@Path("token") String token);
+
 
 }

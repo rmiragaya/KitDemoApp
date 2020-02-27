@@ -54,7 +54,6 @@ public class IntroActivity extends AppCompatActivity implements NewTokenDialog.N
 
     /** Views & VM */
     private void init(){
-
         Tools.checkTls(this);
         // views (should use dataBinding?)
         logo = findViewById(R.id.logoHp);
@@ -143,11 +142,12 @@ public class IntroActivity extends AppCompatActivity implements NewTokenDialog.N
 
                 if (demoRepoResponse.getStatusResponse() == StatusResponse.OK){
                     Log.d(TAG, "OK");
-
+                    //Save Token on SharePreference
                     Tools.saveDemoOnSharePreference(IntroActivity.this, demoRepoResponse.getDemo());
                     startNextActivity();
                     return;
                 }
+
                 Tools.saveTokenOnSharePreference(IntroActivity.this, "");
                     Log.d(TAG, "Error");
                     errorDialog(demoRepoResponse);
