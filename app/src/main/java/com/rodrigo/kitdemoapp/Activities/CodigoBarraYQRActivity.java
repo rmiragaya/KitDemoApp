@@ -32,7 +32,7 @@ public class CodigoBarraYQRActivity extends AppCompatActivity {
 
         CodigoBarrayqrVM codigoBarrayqrVM = ViewModelProviders.of(this).get(CodigoBarrayqrVM.class);
 
-        TextView nombreEmpresaTextView = findViewById(R.id.nombreMarcaEmpresaQRYBarcodeId);
+        TextView nombreEmpresaTextView = findViewById(R.id.nombreMarcaEmpresaPrev);
         nombreEmpresaTextView.setText(codigoBarrayqrVM.getNombreEmpresa());
 
         ImageView logoImageView = findViewById(R.id.logoHPOEmpresaId);

@@ -2,10 +2,10 @@ package com.rodrigo.kitdemoapp.Interfaces;
 
 import androidx.lifecycle.LiveData;
 
-import com.rodrigo.kitdemoapp.Models.DocumentRepoResponse;
+import com.rodrigo.kitdemoapp.Models.DocumentsRepoResponse;
 
 public interface ISelectAppVM {
 
     void init();
-    LiveData<DocumentRepoResponse> getClienteResponseLiveData();
+    LiveData<DocumentsRepoResponse> getClienteResponseLiveData();
 }

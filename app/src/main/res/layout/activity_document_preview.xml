@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/view4"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,28 +38,32 @@
         app:srcCompat="@drawable/logo_hp_white" />
 
     <TextView
-        android:id="@+id/nombreMarcaEmpresaQRYBarcodeId"
-        android:layout_width="wrap_content"
+        android:id="@+id/nombreMarcaEmpresaPrev"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:gravity="center"
+        android:maxLines="1"
         android:text="HP"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/titulos"
-        app:layout_constraintEnd_toEndOf="@+id/logoHPOEmpresaId"
-        app:layout_constraintStart_toStartOf="@+id/logoHPOEmpresaId"
+        android:textSize="@dimen/subtitulos"
+        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/logoHPOEmpresaId" />
 
     <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabDocumentsId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:tabGravity="fill"
         app:tabIndicatorColor="@color/soluWhite"
-        app:tabMode="fixed"
-        app:tabTextColor="@color/soluWhite"
-        android:background="@color/colorPrimaryDark">
+        app:tabMode="scrollable"
+        app:tabTextColor="@color/soluWhite">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -72,9 +76,9 @@
             android:text="@string/productos" />
 
         <com.google.android.material.tabs.TabItem
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/qr_y_barcode" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/qr_y_barcode" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -87,6 +91,20 @@
             android:text="@string/ejemplos" />
 
     </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/document_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabDocumentsId" />
+
+    <FrameLayout
+        android:id="@+id/fragment_pdfv_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

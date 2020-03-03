@@ -3,6 +3,7 @@ package com.rodrigo.kitdemoapp.Retrofit;
 import com.rodrigo.kitdemoapp.Models.Cliente;
 import com.rodrigo.kitdemoapp.Models.Demo;
 import com.rodrigo.kitdemoapp.Models.Document;
+import com.rodrigo.kitdemoapp.Models.DocumentViewModel;
 
 import java.util.List;
 
@@ -27,6 +28,10 @@ public interface KitDemoApi {
     @GET("Documents/GetDocuments/{demoToken}")
     Call<List<Document>> getDocuments(@Path("demoToken") String demoToken);
 
+    @GET("Documents/GetDocument/{id}")
+    Call<DocumentViewModel> getDocumentViewModel(@Path("id") String documentId,
+                                                 @Header("Token") String header);
+
     @Multipart
     @Headers({"Source: AndroidApp"})
     @POST("Documents/Create")
@@ -44,6 +49,14 @@ public interface KitDemoApi {
 
 //    @GET("Documents/GetDocuments/{token}")
 //    Call<List<Document>> getDocuments(@Path("token") String token);
+
+    @GET("Documents/GetDocumentFile/{id}")
+    Call<ResponseBody> getDocumentFile(@Path("id") String documentId,
+                                       @Header("Token") String header);
+
+    @GET("Documents/GetCoverFile/{id}")
+    Call<ResponseBody> getDocumentExampleFile(@Path("id") String documentId,
+                                       @Header("Token") String header);
 
 
 }

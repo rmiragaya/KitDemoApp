@@ -7,18 +7,18 @@ import com.rodrigo.kitdemoapp.StatusResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DocumentRepoResponse {
+public class DocumentsRepoResponse {
     private List<Document> documentList;
     private StatusResponse statusResponse;
     private String mensajeError;
 
-    public DocumentRepoResponse(ArrayList<Document> documentList, @NonNull StatusResponse statusResponse, String mensajeError) {
+    public DocumentsRepoResponse(ArrayList<Document> documentList, @NonNull StatusResponse statusResponse, String mensajeError) {
         this.documentList = documentList;
         this.statusResponse = statusResponse;
         this.mensajeError = mensajeError;
     }
 
-    public DocumentRepoResponse(ArrayList<Document> documentList, @NonNull StatusResponse statusResponse) {
+    public DocumentsRepoResponse(ArrayList<Document> documentList, @NonNull StatusResponse statusResponse) {
         this.documentList = documentList;
         this.statusResponse = statusResponse;
         this.mensajeError = null;

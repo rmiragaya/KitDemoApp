@@ -71,4 +71,7 @@ dependencies {
     //riplelyb
     implementation 'com.balysv:material-ripple:1.0.2'
 
+    // pdfPreview
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+
 }

@@ -3,6 +3,8 @@
     <!-- Textos -->
     <dimen name="titulos">30sp</dimen>
     <dimen name="subtitulos">20sp</dimen>
+    <dimen name="subsubtitulos">15sp</dimen>
+
 
     <!-- Tamaño Cards -->
     <dimen name="alto_card">250dp</dimen>

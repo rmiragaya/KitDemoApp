@@ -7,14 +7,14 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.rodrigo.kitdemoapp.Interfaces.ISelectAppVM;
-import com.rodrigo.kitdemoapp.Models.DocumentRepoResponse;
+import com.rodrigo.kitdemoapp.Models.DocumentsRepoResponse;
 import com.rodrigo.kitdemoapp.Repo.DocumentRepo;
 import com.rodrigo.kitdemoapp.Utils.Tools;
 
 public class SelectAppVM extends AndroidViewModel implements ISelectAppVM {
 
     private DocumentRepo documentRepo;
-    private LiveData<DocumentRepoResponse> clienteResponseLiveData;
+    private LiveData<DocumentsRepoResponse> clienteResponseLiveData;
     private String token;
 
     public SelectAppVM(@NonNull Application application) {
@@ -27,7 +27,7 @@ public class SelectAppVM extends AndroidViewModel implements ISelectAppVM {
         clienteResponseLiveData = documentRepo.getDocuments(token);
     }
 
-    public LiveData<DocumentRepoResponse> getClienteResponseLiveData() {
+    public LiveData<DocumentsRepoResponse> getClienteResponseLiveData() {
         return clienteResponseLiveData;
     }
 }

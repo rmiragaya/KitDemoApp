@@ -25,7 +25,7 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.rodrigo.kitdemoapp.Models.Demo;
 import com.rodrigo.kitdemoapp.Models.Document;
-import com.rodrigo.kitdemoapp.Models.DocumentRepoResponse;
+import com.rodrigo.kitdemoapp.Models.DocumentsRepoResponse;
 import com.rodrigo.kitdemoapp.R;
 import com.rodrigo.kitdemoapp.StatusResponse;
 import com.rodrigo.kitdemoapp.Utils.Tools;
@@ -212,33 +212,34 @@ public class Select_App_Activity extends AppCompatActivity {
 
     private void getListaDocumentos() {
         selectAppVM.init();
-        selectAppVM.getClienteResponseLiveData().observe(this, new Observer<DocumentRepoResponse>() {
+        selectAppVM.getClienteResponseLiveData().observe(this, new Observer<DocumentsRepoResponse>() {
             @Override
-            public void onChanged(DocumentRepoResponse documentRepoResponse) {
-                cargandoDialog();
-                if (documentRepoResponse.getStatusResponse() == StatusResponse.OK){
+            public void onChanged(DocumentsRepoResponse documentsRepoResponse) {
+
+                if (documentsRepoResponse.getStatusResponse() == StatusResponse.OK){
                     Log.d(TAG, "OK");
-                    startNextActivity(documentRepoResponse);
+                    startNextActivity(documentsRepoResponse);
                     return;
                 }
 
                 Log.d(TAG, "ERROR");
                 Toast.makeText(Select_App_Activity.this, getBaseContext().getResources().getString(R.string.error_conexion), Toast.LENGTH_SHORT).show();
+                cargandoDialog();
             }
         });
     }
 
-    private void startNextActivity(DocumentRepoResponse documentRepoResponse) {
+    private void startNextActivity(DocumentsRepoResponse documentsRepoResponse) {
         //todo llamar proxima activity con el document response en bundle
         Log.d(TAG, "startNextActivity: ok");
-        for (Document d : documentRepoResponse.getDocumentList()){
+        for (Document d : documentsRepoResponse.getDocumentList()){
             Log.d(TAG, "" + d.toString());
         }
 
 
         Intent intent = new Intent(this, DocumentPreviewActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("listaDocumentos", (ArrayList<? extends Parcelable>) documentRepoResponse.getDocumentList());
+        bundle.putParcelableArrayList("listaDocumentos", (ArrayList<? extends Parcelable>) documentsRepoResponse.getDocumentList());
         intent.putExtras(bundle);
         startActivity(intent);
         finish();
