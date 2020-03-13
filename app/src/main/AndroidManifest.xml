@@ -15,6 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Activities.ScanFiliatorio"/>
+        <activity android:name=".Activities.ScanActivityTemplate" />
+        <activity android:name=".Activities.ScanProducto" />
+        <activity android:name=".Activities.Main2ActivityBorrrar" />
         <activity android:name=".Activities.DocumentPreviewActivity" />
         <activity android:name=".Activities.RecorteDeFirmaActivity" />
         <activity android:name=".Activities.CodigoBarraYQRActivity" />

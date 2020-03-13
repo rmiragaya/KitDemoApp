@@ -9,46 +9,57 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 
+import com.rodrigo.kitdemoapp.Activities.Main2ActivityBorrrar;
 import com.rodrigo.kitdemoapp.Activities.MainActivity;
+import com.rodrigo.kitdemoapp.Activities.ScanActivityTemplate;
 
 import org.beyka.tiffbitmapfactory.CompressionScheme;
 import org.beyka.tiffbitmapfactory.Orientation;
 import org.beyka.tiffbitmapfactory.TiffSaver;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConvertImageInTiff extends AsyncTask<Void, Void, Void> {
     private static final String TAG = "ConvertImageInTiff";
-    private static final String FILE_TIFF_PATH = Environment.getExternalStorageDirectory().getPath() + "/out1.tif";
-    private final WeakReference<MainActivity> mContext;
 
-    private Bitmap bitmap;
+    private String pathFileName;
+    private List<Bitmap> bitmap;
+    private IImageConvertedCallback listener;
 
-    public ConvertImageInTiff(final MainActivity context, Bitmap bitmap) {
-        this.mContext = new WeakReference<>(context);
+    public ConvertImageInTiff(final ScanActivityTemplate context, List<Bitmap> bitmap, String fileName) {
         this.bitmap = bitmap;
+        this.pathFileName = context.getExternalFilesDir(null).getAbsolutePath() + "/" + fileName + ".tif";
+        this.listener = context;
+    }
+
+    public interface IImageConvertedCallback{
+        void onImageConvert(String path);
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
         Log.d(TAG, "doInBackground: call");
         //Open some image
-
-        bitmap = resize(bitmap, 2480,3508);
-
-//Create options for saving
+        //Create options for saving
         TiffSaver.SaveOptions options = new TiffSaver.SaveOptions();
-//By default compression mode is none
+        //By default compression mode is none
         options.compressionScheme = CompressionScheme.CCITTFAX4;
-//By default orientation is top left
+        //By default orientation is top left
         options.orientation = Orientation.LEFT_TOP;
-//Add new directory to existing file or create new file. If image saved succesfull true will be returned
-        Log.d(TAG, "bitmap antes de convertir a Tiff:\nBitMapWidth: " + bitmap.getWidth() + " BitmapHeight: " + bitmap.getHeight() );
-        boolean saved = TiffSaver.appendBitmap(FILE_TIFF_PATH, bitmap, options);
 
-        Log.d(TAG, "se guardó?: " + saved);
-        Log.d(TAG, "en: " + FILE_TIFF_PATH);
 
+        for (Bitmap b : this.bitmap){
+            Bitmap current;
+            current = resize(b, 2480,3508);
+            //Add new directory to existing file or create new file. If image saved succesfull true will be returned
+            Log.d(TAG, "bitmap antes de convertir a Tiff:\nBitMapWidth: " + current.getWidth() + " BitmapHeight: " + current.getHeight() );
+            boolean saved = TiffSaver.appendBitmap(this.pathFileName, current, options);
+
+            Log.d(TAG, "se guardó?: " + saved);
+            Log.d(TAG, "en: " + this.pathFileName);
+        }
 
         return null;
     }
@@ -57,7 +68,8 @@ public class ConvertImageInTiff extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         Log.d(TAG, "onPostExecute: call");
         super.onPostExecute(aVoid);
-        mContext.get().onImageConvert(FILE_TIFF_PATH);
+//        mContext.get().onImageConvert(this.pathFileName);
+        listener.onImageConvert(this.pathFileName);
     }
 
     private Bitmap convertToMono(Bitmap bitmapColor){
@@ -92,4 +104,5 @@ public class ConvertImageInTiff extends AsyncTask<Void, Void, Void> {
             return image;
         }
     }
+
 }

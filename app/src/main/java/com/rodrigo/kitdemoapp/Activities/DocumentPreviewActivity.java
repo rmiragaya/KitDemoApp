@@ -42,14 +42,7 @@ public class DocumentPreviewActivity extends AppCompatActivity implements DocuFi
     public static final String QR = "QR Y Barcode";
     public static final String RECORTEFIRMA = "Recorte de Firma";
     public static final String EJEMPLOS = "Ejemplos";
-
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
     private DocumentPreviewVM documentPreviewVM;
-
-    private PdfViewerFragment fragment;
-
-    private List<Document> documentsList = new ArrayList<>();
 
     private int tabSelected;
 
@@ -61,19 +54,14 @@ public class DocumentPreviewActivity extends AppCompatActivity implements DocuFi
         documentPreviewVM = ViewModelProviders.of(this).get(DocumentPreviewVM.class);
 
         Bundle bundle = getIntent().getExtras();
-        documentsList = bundle.getParcelableArrayList("listaDocumentos");
-
-        //no es necesario
-//        if (documentsList!= null){
-//            Collections.reverse(documentsList);
-//        }
+        List<Document> documentsList = bundle.getParcelableArrayList("listaDocumentos");
 
         for (Document d :documentsList){
             Log.d(TAG, "" + d.toString());
         }
 
-        tabLayout = findViewById(R.id.tabDocumentsId);
-        viewPager = findViewById(R.id.document_view_pager);
+        TabLayout tabLayout = findViewById(R.id.tabDocumentsId);
+        ViewPager viewPager = findViewById(R.id.document_view_pager);
 
         TextView nombreEmpresaTextView = findViewById(R.id.nombreMarcaEmpresaPrev);
         nombreEmpresaTextView.setText(documentPreviewVM.getNombreEmpresa());
@@ -101,8 +89,6 @@ public class DocumentPreviewActivity extends AppCompatActivity implements DocuFi
             public void onTabSelected(TabLayout.Tab tab) {
                 Log.d(TAG, "onTabSelected: Tab " + tab.getText());
                 Log.d(TAG, "onTabSelected: Position " +  tab.getPosition());
-
-                //todo: poner
                 tabSelected = tab.getPosition();
 
             }
@@ -111,18 +97,12 @@ public class DocumentPreviewActivity extends AppCompatActivity implements DocuFi
             public void onTabUnselected(TabLayout.Tab tab) {
 
             }
-
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
         });
-
-
     }
-
-
-
 
     @Override
     public void onDocuClick(final Document documentSeleccionado) {
@@ -146,7 +126,6 @@ public class DocumentPreviewActivity extends AppCompatActivity implements DocuFi
 
                 if (documentFileRepoResponse.getStatusResponse() == StatusResponse.OK){
                     Log.d(TAG, "Ok");
-//                    openPdfVewFragment(documentFileRepoResponse.getDocumentFile().getAbsolutePath());
                     getDocumentViewModel(documentSeleccionado.getId(),documentFileRepoResponse.getDocumentFile().getAbsolutePath());
                     return;
                 }
@@ -193,7 +172,7 @@ public class DocumentPreviewActivity extends AppCompatActivity implements DocuFi
     }
 
     private void openPdfVewFragment(String pdfFile, DocumentViewModel documentViewModel){
-        fragment = PdfViewerFragment.newInstance(pdfFile, documentViewModel);
+        PdfViewerFragment fragment = PdfViewerFragment.newInstance(pdfFile, documentViewModel);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right, R.anim.slide_in_right, R.anim.slide_out_right);
@@ -243,14 +222,4 @@ public class DocumentPreviewActivity extends AppCompatActivity implements DocuFi
             file.delete();
         }
     }
-
-//    private void deleteRecursive(File fileOrDirectory){
-//        if (fileOrDirectory.isDirectory()) {
-//            for (File child : fileOrDirectory.listFiles()) {
-//                deleteRecursive(child);
-//            }
-//        }
-//        Log.d(TAG, "fileOrDirectory " + fileOrDirectory.getAbsolutePath() + " will be delete");
-//        fileOrDirectory.delete();
-//    }
 }

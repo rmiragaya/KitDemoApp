@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.gson.Gson;
 import com.rodrigo.kitdemoapp.Models.Document;
 import com.rodrigo.kitdemoapp.Models.DocumentFileRepoResponse;
 import com.rodrigo.kitdemoapp.Models.DocumentViewModel;
@@ -22,6 +23,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +36,7 @@ public class DocumentRepo {
     private DocumentsRepoResponse documentsRepoResponse;
     private DocumentFileRepoResponse documentFileRepoResponse;
     private DocumentViewModelResponse documentViewModelResponse;
+    private DocumentViewModelResponse postDocumentViewModelResponse;
 
     public DocumentRepo() {
         apiRequest = RetrofitRequest.getRetrofitInstance().create(KitDemoApi.class);
@@ -186,6 +190,50 @@ public class DocumentRepo {
         });
         return data;
     }
+
+    public MutableLiveData<DocumentViewModelResponse> postDocument (final String token, final DocumentViewModel documentViewModel, final File file){
+        final MutableLiveData<DocumentViewModelResponse> data = new MutableLiveData<>();
+
+        Gson g = new Gson();
+        String documentToPostString = g.toJson(documentViewModel);                // Respuesta de la HP:
+                                                                                  //  "{"client":"12345"     ,"demoId":1               ,"metadataViewModel":{"businessName":"Coca","country":"Argentina","date":"2020-03-10T11:54:22.109Z","documentName":"OTRA","email":"coca@coca.com","sex":"No especifica"},"serieName":"Filiation"}"
+                                                                                  //  "{"client":"12345","demoId":"12345","id":"1","metadataViewModel":{"businessName":"Felix Lopez","country":"Argentina","date":"2020-03-10T11:08:14.815Z","documentName":"OTRA","email":"Felix@mailreal.com","sex":"No especifica"},"serieName":"Filiation"}
+        Log.d(TAG, "documentToPostString: " + documentToPostString);         //  "{"client":"Home Depot","demoId":"12345","id":"1","metadataViewModel":{"businessName":"Felix Lopez","country":"Argentina","date":"2020-03-10T10:16:33.609Z","email":"Felix@mailreal.com","sex":"No especifica"},"serieName":"Filiation"}"
+        RequestBody modelParttoString = RequestBody.create(MultipartBody.FORM, documentToPostString);
+        RequestBody filePart = RequestBody.create(MultipartBody.FORM, file);
+
+        MultipartBody.Part filePart2 = MultipartBody.Part.createFormData("File", documentViewModel.getMetadataClient().getDocumentName() + ".tif", filePart);
+        apiRequest.createDocument(token,modelParttoString,filePart2).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(TAG, "onResponse: ok");
+                if (response.code() >= 400){
+                    postDocumentViewModelResponse = new DocumentViewModelResponse(null, StatusResponse.ERROR_CONEXION, "Error Inesperado");
+                    Log.d(TAG, "respuesa con error " + response.code());
+                    Log.d(TAG, "response.message: " + response.message());
+                    Log.d(TAG, "response.errorBody: " + response.errorBody());
+                    try {
+                        Log.d(TAG, "response.errorBody bytes to string: " + new String(response.errorBody().bytes(), "UTF-8"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (response.body() !=null){
+                    postDocumentViewModelResponse = new DocumentViewModelResponse(null,StatusResponse.OK);
+                    Log.d(TAG, "onResponse: " + response.body().toString());
+                }
+                data.setValue(postDocumentViewModelResponse);
+
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "onFailure: call");
+            }
+        });
+        return data;
+    }
+
+
 
     private File createFile(String idFile, ResponseBody body){
         try {

@@ -1,8 +1,14 @@
 package com.rodrigo.kitdemoapp.Utils;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.Base64;
+
+import com.rodrigo.kitdemoapp.Models.SliderItem;
+import com.rodrigo.kitdemoapp.R;
 
 public class ImagenManipulation {
 
@@ -33,5 +39,12 @@ public class ImagenManipulation {
             } else {
                 return image;
             }
+        }
+
+        public static SliderItem convertBitmapToSliderItem(Bitmap bitmapToConvert){
+
+
+            SliderItem sliderItemconvert = new SliderItem(bitmapToConvert);
+            return sliderItemconvert;
         }
 }

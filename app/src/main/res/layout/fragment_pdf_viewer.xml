@@ -26,14 +26,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:weightSum="6">
+            android:weightSum="10">
 
             <com.github.barteksc.pdfviewer.PDFView
                 android:id="@+id/pdfPreview"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginBottom="8dp"
-                android:layout_weight="5">
+                android:layout_weight="9">
 
             </com.github.barteksc.pdfviewer.PDFView>
 
@@ -43,7 +43,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:background="@color/colorPrimary"
+                android:text="Info"
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

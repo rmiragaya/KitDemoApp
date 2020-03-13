@@ -30,11 +30,9 @@ public class MetadataDialog extends AppCompatDialogFragment {
     private DocumentViewModel documentViewModel;
 
     public MetadataDialog() {
-
     }
 
     public static MetadataDialog newInstance(DocumentViewModel documentViewModel) {
-
         Bundle args = new Bundle();
         MetadataDialog fragment = new MetadataDialog();
         args.putParcelable(DOCUMENTVIEWMODEL, documentViewModel);
@@ -55,11 +53,6 @@ public class MetadataDialog extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
-//        if (getArguments() != null) {
-//            documentViewModel = getArguments().getParcelable(DOCUMENTVIEWMODEL);
-//            Log.d(TAG, "documentViewModel onCreateDialog: " + documentViewModel.toString());
-//        }
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.metadata_dialog, null);
@@ -67,7 +60,12 @@ public class MetadataDialog extends AppCompatDialogFragment {
         initRecyclerView(view);
 
         TextView clienteName = view.findViewById(R.id.clienteId);
-        clienteName.setText(documentViewModel.getClient());
+        if (documentViewModel.getClient()!= null){
+            clienteName.setText(documentViewModel.getClient());
+        } else {
+            clienteName.setText("Ejemplo");
+        }
+
 
         Dialog dialog = builder.create();
 

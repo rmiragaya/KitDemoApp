@@ -1,17 +1,5 @@
 package com.rodrigo.kitdemoapp.Activities;
 
-import androidx.activity.OnBackPressedDispatcher;
-import androidx.activity.OnBackPressedDispatcherOwner;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +17,13 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -77,7 +72,6 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
         super.onCreate(savedInstanceState);
         setContentView(R.layout.apertura_cuenta_layout);
 
-        //todo get name and logo
         //carga imagen y nombre de empresa
         Demo demo = Tools.getDemoFromSharePreference(this);
         String nombreEmpresa = demo.getClient();
@@ -264,7 +258,6 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
         }
 
         // se guarda la Demo
-//        aperturaCuentaVM.saveDemo(demo, this);
         aperturaCuentaVM.saveDemo(demo);
 
     }

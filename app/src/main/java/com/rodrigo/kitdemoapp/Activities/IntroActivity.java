@@ -45,6 +45,10 @@ public class IntroActivity extends AppCompatActivity implements NewTokenDialog.N
         setContentView(R.layout.activity_intro);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+            finish();
+        }
+
         init();
 
         splashAnimation();
@@ -54,8 +58,12 @@ public class IntroActivity extends AppCompatActivity implements NewTokenDialog.N
 
     /** Views & VM */
     private void init(){
+        //check if TLS is needed
         Tools.checkTls(this);
-        // views (should use dataBinding?)
+        //delete all files from files folder
+        Tools.deleteAllFiles(this);
+
+        // views (todo: should use dataBinding?)
         logo = findViewById(R.id.logoHp);
         poweredBy = findViewById(R.id.textoPoweredBySoluciones);
         // VM

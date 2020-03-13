@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        binding.loadBtn.setOnClickListener(new View.OnClickListener() {
+        binding.loadFromCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
@@ -158,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
             startCropImageActivity(imageUri);
         }
 
+        //viene de cropear
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             Log.d(TAG, "CROP_IMAGE_ACTIVITY: call");
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
@@ -256,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Seleccione una imagen", Toast.LENGTH_SHORT).show();
             return;
         }
-        new ConvertImageInTiff(this, bitmapSelected).execute();
+//        new ConvertImageInTiff(this, bitmapSelected,"out").execute();
     }
 
     private void startCropImageActivity(Uri imageUri) {
@@ -273,7 +274,6 @@ public class MainActivity extends AppCompatActivity {
         RequestBody filePart = RequestBody.create(MultipartBody.FORM, file);
 
         MultipartBody.Part filePart2 = MultipartBody.Part.createFormData("File", "testFileName", filePart);
-
 
         Call<ResponseBody> call = kitDemoApi.createDocument("4af61b2e-b130-45b7-beec-6ec41dac5317",modelParttoString, filePart2);
         call.enqueue(new Callback<ResponseBody>() {

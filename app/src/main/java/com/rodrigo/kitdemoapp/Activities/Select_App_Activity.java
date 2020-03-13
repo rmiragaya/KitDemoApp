@@ -38,25 +38,24 @@ public class Select_App_Activity extends AppCompatActivity {
 
     private static final int MAX_STEP = 4;
     private ViewPager viewPager;
-    private MyViewPagerAdapter myViewPagerAdapter;
     private View cargandoProgresBar;
     private SelectAppVM selectAppVM;
 
-    private String about_title_array[] = {
+    private String[] about_title_array = {
             "Apertura de Cuenta",
             "Clasificación de Documentos",
             "Captura de Firma",
             "Impresión de Documentos"
     };
 
-    private String about_description_array[] = {
+    private String[] about_description_array = {
             "Cargue la documentación de sus clientes de forma rápida y sencilla.",
             "Direccione sus documentos de forma dinámica mediante la lectura de códigos de Barra/QR.",
             "Recorte la firma de sus clientes plasmadas en formularios de manera dinámica.",
             "Accede a la cuenta e imprime la documentación previamente ingresada"
     };
 
-    private String about_images_array[] = {
+    private String[] about_images_array = {
             "abrir_cuenta.json",
             "qr.json",
             "firma.json",
@@ -69,6 +68,7 @@ public class Select_App_Activity extends AppCompatActivity {
         setContentView(R.layout.select_app_layout);
 
         if (getIntent().getBooleanExtra("EXIT", false)) {
+            Log.d(TAG, "onCreate: exit es True");
             finish();
         }
 
@@ -82,7 +82,7 @@ public class Select_App_Activity extends AppCompatActivity {
 
         // adding bottom dots
         bottomProgressDots(0);
-        myViewPagerAdapter = new MyViewPagerAdapter();
+        MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter();
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 //        viewPager.setCurrentItem(Tools.getViewPagerPosition(this));
@@ -133,22 +133,20 @@ public class Select_App_Activity extends AppCompatActivity {
      * View pager adapter
      */
     public class MyViewPagerAdapter extends PagerAdapter {
-        private LayoutInflater layoutInflater;
-        private Button btnNext;
 
-        public MyViewPagerAdapter() {
+        private MyViewPagerAdapter() {
         }
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             View view = layoutInflater.inflate(R.layout.item_card_wizard_light, container, false);
             ((TextView) view.findViewById(R.id.title)).setText(about_title_array[position]);
             ((TextView) view.findViewById(R.id.description)).setText(about_description_array[position]);
             ((LottieAnimationView) view.findViewById(R.id.image)).setAnimation(about_images_array[position]);
 
-            btnNext = view.findViewById(R.id.btn_next);
+            Button btnNext = view.findViewById(R.id.btn_next);
 
             btnNext.setText(getResources().getString(R.string.abrir));
 

@@ -1,10 +1,13 @@
 package com.rodrigo.kitdemoapp.Utils;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.LiveData;
 import androidx.preference.PreferenceManager;
 
@@ -18,6 +21,7 @@ import com.rodrigo.kitdemoapp.Models.MetadataClient;
 import com.rodrigo.kitdemoapp.R;
 import com.rodrigo.kitdemoapp.StatusResponse;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -148,6 +152,25 @@ public class Tools {
 //        return sharedPreferences.getInt(Tools.VIEWPAGERPOSITION, 0);
 //    }
 
+
+    /**
+     * Delete all pdf and tiff files
+     */
+    public static void deleteAllFiles(Context ctx){
+        File folder = new File(ctx.getExternalFilesDir(null).getAbsolutePath());
+        File[] children = folder.listFiles();
+        Log.d(TAG, "children: " + children.length);
+        Log.d(TAG, "folder.getAbsolutePath(): " + folder.getAbsolutePath());
+        deleteRecursive(children);
+    }
+
+    private static void deleteRecursive(File[] filesToDelete){
+        for (File file : filesToDelete){
+            Log.d(TAG, "file: " + file.getName());
+            file.delete();
+        }
+    }
+
     /**
      * For API version with no TLS (api 19)
      * */
@@ -158,5 +181,7 @@ public class Tools {
             e.printStackTrace();
         }
     }
+
+
 
 }

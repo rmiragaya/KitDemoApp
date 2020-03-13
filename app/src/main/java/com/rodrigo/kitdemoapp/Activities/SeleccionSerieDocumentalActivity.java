@@ -1,17 +1,15 @@
 package com.rodrigo.kitdemoapp.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.rodrigo.kitdemoapp.Models.Demo;
-import com.rodrigo.kitdemoapp.Models.MetadataClient;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import com.rodrigo.kitdemoapp.R;
-import com.rodrigo.kitdemoapp.Utils.Tools;
+import com.rodrigo.kitdemoapp.Utils.Constant;
 
 public class SeleccionSerieDocumentalActivity extends AppCompatActivity {
     private static final String TAG = "SeleccionSerieDocumenta";
@@ -24,14 +22,6 @@ public class SeleccionSerieDocumentalActivity extends AppCompatActivity {
         if (getIntent().getBooleanExtra("EXIT", false)) {
             finish();
         }
-
-        // for testing
-//        Demo demoTest = Tools.getDemoFromSharePreference(this);
-//        Log.d(TAG, "Demo test: " + demoTest.toString());
-//        Log.d(TAG, "*******************************************");
-//        MetadataClient metadataClient = Tools.getMetadataClientSharePreference(this);
-//        Log.d(TAG, "metadataClient test: " + metadataClient.toString());
-        // for testing
         init();
     }
 
@@ -57,7 +47,14 @@ public class SeleccionSerieDocumentalActivity extends AppCompatActivity {
     }
 
     private void startDocuOProductActivity(int i) {
-        // todo: abrir proxima activity con docu o product
+        Intent intent;
+        if (i == 0){
+            intent = new Intent(this, ScanFiliatorio.class);
+        } else {
+            intent = new Intent(this, ScanProducto.class);
+        }
+
+        startActivity(intent);
     }
 
 
