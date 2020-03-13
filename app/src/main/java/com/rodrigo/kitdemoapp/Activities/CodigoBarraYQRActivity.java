@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rodrigo.kitdemoapp.R;
+import com.rodrigo.kitdemoapp.Utils.Constant;
 import com.rodrigo.kitdemoapp.Utils.ImagenManipulation;
 import com.rodrigo.kitdemoapp.ViewModel.CodigoBarrayqrVM;
 
@@ -47,7 +48,7 @@ public class CodigoBarraYQRActivity extends AppCompatActivity {
         qrCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startQRActivity();
+                startQRAndCodBarra(Constant.QR);
             }
         });
 
@@ -55,11 +56,17 @@ public class CodigoBarraYQRActivity extends AppCompatActivity {
         barCodeCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startBarCodeActivity();
+                startQRAndCodBarra(Constant.CODBARRA);
             }
         });
 
         onCreateAnimation();
+    }
+
+    private void startQRAndCodBarra(String qrOrBarcode) {
+        Intent intent = new Intent(this, QrAndBarCodeActivity.class);
+        intent.putExtra(Constant.QRORCORBARRA, qrOrBarcode);
+        startActivity(intent);
     }
 
     private void onCreateAnimation(){

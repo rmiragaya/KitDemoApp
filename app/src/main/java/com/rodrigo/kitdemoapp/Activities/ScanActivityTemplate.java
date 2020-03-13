@@ -166,6 +166,12 @@ public abstract class ScanActivityTemplate extends AppCompatActivity implements 
         initVM();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        changeTitle();
+    }
+
     /**
      * call when the file was uploaded
      */

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linearLayout3"
+    android:id="@+id/constra"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
@@ -21,18 +21,20 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/dialogQrBarcodeConstraintId"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <TextView
-                android:id="@+id/tituloDialogId"
+                android:id="@+id/tituloqrBarcodeDialogId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/hp_simplified_265"
                 android:gravity="center"
-                android:text="Alta"
+                android:text="Ingrese ID"
                 android:textSize="@dimen/subsubtitulos"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -45,24 +47,21 @@
                 android:background="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tituloDialogId" />
+                app:layout_constraintTop_toBottomOf="@id/tituloqrBarcodeDialogId" />
 
             <TextView
-                android:id="@+id/subtitulo"
+                android:id="@+id/subtituloqrBarcode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/hp_simplified_265"
                 android:gravity="center"
-                android:lines="2"
-                android:text="Ingrese código de Alta"
                 android:textSize="@dimen/subtitulos"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textimputlayout"
+                android:id="@+id/textimputlayoutQrBarcode"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
@@ -72,61 +71,19 @@
                 app:errorTextAppearance="@style/TextAppearance.AppCompat.Body1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/subtitulo">
+                app:layout_constraintTop_toBottomOf="@+id/subtituloqrBarcode">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textEditaltaId"
+                    android:id="@+id/textEditDocuIdQrBarcode"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Código Alta"
-                    android:inputType="textFilter"
+                    android:hint="Id"
                     android:maxLength="50"
-                    android:maxLines="1"
                     android:textSize="@dimen/subsubtitulos" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/sub2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/hp_simplified_265"
-                android:gravity="center"
-                android:lines="2"
-                android:text="Ingrese nombre del Documento"
-                android:textSize="@dimen/subtitulos"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textimputlayout" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layoutDocumentName"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColorHint="@color/colorPrimary"
-                app:boxStrokeColor="@color/colorPrimary"
-                app:errorTextAppearance="@style/TextAppearance.AppCompat.Body1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sub2">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextDocumentName"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="Nombre Documento"
-                    android:inputType="textFilter"
-                    android:maxLength="50"
-                    android:maxLines="1"
-                    android:textSize="@dimen/subsubtitulos" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/digitalizacionBtnId"
+                android:id="@+id/digitalizacionBtnIdQrBarcode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -135,10 +92,10 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutDocumentName" />
-
+                app:layout_constraintTop_toBottomOf="@id/textimputlayoutQrBarcode" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.cardview.widget.CardView>
 
