@@ -52,7 +52,7 @@ public class ConvertImageInTiff extends AsyncTask<Void, Void, Void> {
 
         for (Bitmap b : this.bitmap){
             Bitmap current;
-            current = resize(b, 2480,3508);
+            current = b;
             //Add new directory to existing file or create new file. If image saved succesfull true will be returned
             Log.d(TAG, "bitmap antes de convertir a Tiff:\nBitMapWidth: " + current.getWidth() + " BitmapHeight: " + current.getHeight() );
             boolean saved = TiffSaver.appendBitmap(this.pathFileName, current, options);

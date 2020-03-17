@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.rodrigo.kitdemoapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,21 +16,44 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.QrAndBarCodeActivity"></activity>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.rodrigo.kitdemoapp"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity android:name=".Activities.ScanRecorteFirma"></activity>
+        <activity android:name=".Activities.QrAndBarCodeActivity" />
         <activity android:name=".Activities.ScanFiliatorio" />
         <activity android:name=".Activities.ScanActivityTemplate" />
         <activity android:name=".Activities.ScanProducto" />
         <activity android:name=".Activities.Main2ActivityBorrrar" />
         <activity android:name=".Activities.DocumentPreviewActivity" />
-        <activity android:name=".Activities.RecorteDeFirmaActivity" />
         <activity android:name=".Activities.CodigoBarraYQRActivity" />
         <activity android:name=".Activities.SeleccionSerieDocumentalActivity" />
         <activity android:name=".Activities.Select_App_Activity" />
         <activity android:name=".Activities.IntroActivity">
+            <tools:validation testUrl="http://kitdemoapp.com.ar/open/" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="http"
+                    android:host="kitdemoapp.com.ar"
+                    android:pathPrefix="/open/" />
             </intent-filter>
         </activity>
         <activity android:name=".Activities.AperturaCuentaMainActivity" />

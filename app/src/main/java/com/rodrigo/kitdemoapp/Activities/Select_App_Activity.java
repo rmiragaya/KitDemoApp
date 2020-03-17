@@ -172,7 +172,7 @@ public class Select_App_Activity extends AppCompatActivity {
                             finish();
                             break;
                         case 2:
-                            intent = new Intent(v.getContext(), RecorteDeFirmaActivity.class);
+                            intent = new Intent(v.getContext(), ScanRecorteFirma.class);
                             startActivity(intent);
                             finish();
                             break;

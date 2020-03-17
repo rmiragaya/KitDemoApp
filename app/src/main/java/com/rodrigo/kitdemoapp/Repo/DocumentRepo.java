@@ -1,5 +1,6 @@
 package com.rodrigo.kitdemoapp.Repo;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -195,11 +196,12 @@ public class DocumentRepo {
         final MutableLiveData<DocumentViewModelResponse> data = new MutableLiveData<>();
 
         Gson g = new Gson();
-        String documentToPostString = g.toJson(documentViewModel);                // Respuesta de la HP:
-                                                                                  //  "{"client":"12345"     ,"demoId":1               ,"metadataViewModel":{"businessName":"Coca","country":"Argentina","date":"2020-03-10T11:54:22.109Z","documentName":"OTRA","email":"coca@coca.com","sex":"No especifica"},"serieName":"Filiation"}"
-                                                                                  //  "{"client":"12345","demoId":"12345","id":"1","metadataViewModel":{"businessName":"Felix Lopez","country":"Argentina","date":"2020-03-10T11:08:14.815Z","documentName":"OTRA","email":"Felix@mailreal.com","sex":"No especifica"},"serieName":"Filiation"}
-        Log.d(TAG, "documentToPostString: " + documentToPostString);         //  "{"client":"Home Depot","demoId":"12345","id":"1","metadataViewModel":{"businessName":"Felix Lopez","country":"Argentina","date":"2020-03-10T10:16:33.609Z","email":"Felix@mailreal.com","sex":"No especifica"},"serieName":"Filiation"}"
+        String documentToPostString = g.toJson(documentViewModel);
+
+
+        Log.d(TAG, "documentToPostString: " + documentToPostString);
         RequestBody modelParttoString = RequestBody.create(MultipartBody.FORM, documentToPostString);
+        Log.d(TAG, "postDocument: " );
         RequestBody filePart = RequestBody.create(MultipartBody.FORM, file);
 
         MultipartBody.Part filePart2 = MultipartBody.Part.createFormData("File", documentViewModel.getMetadataClient().getDocumentName() + ".tif", filePart);

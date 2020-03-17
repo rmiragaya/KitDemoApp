@@ -23,6 +23,14 @@ public class NewTokenDialog extends AppCompatDialogFragment {
 
     public interface NewTokenDialogListener{
         void newTokenSaved(String newToken);
+        void cancel();
+    }
+
+    public NewTokenDialog() {
+    }
+
+    public static NewTokenDialog newInstance() {
+        return new NewTokenDialog();
     }
 
     @NonNull
@@ -39,6 +47,7 @@ public class NewTokenDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d(TAG, "cancelar click");
+                        listener.cancel();
                     }
                 })
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -57,7 +66,6 @@ public class NewTokenDialog extends AppCompatDialogFragment {
         tokenEditText = v.findViewById(R.id.token_editText_id);
 
         Dialog dialog = builder.create();
-//        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.setCanceledOnTouchOutside(false);
 

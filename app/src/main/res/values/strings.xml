@@ -37,4 +37,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fromCamera">Cámara</string>
     <string name="fromGallery">Galería</string>
+    <string name="ingrese_id">Ingrese ID del Cliente</string>
+    <string name="ejemplo">Ejemplo</string>
+    <string name="un_momento">Un momento por favor</string>
 </resources>

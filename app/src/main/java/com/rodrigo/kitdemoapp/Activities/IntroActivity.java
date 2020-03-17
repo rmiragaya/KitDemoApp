@@ -9,6 +9,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -53,7 +55,25 @@ public class IntroActivity extends AppCompatActivity implements NewTokenDialog.N
 
         splashAnimation();
 
-        getToken();
+        getLinkIntent();
+
+
+
+
+
+    }
+
+    private void getLinkIntent() {
+        // ATTENTION: This was auto-generated to handle app links.
+        Intent appLinkIntent = getIntent();
+        String appLinkAction = appLinkIntent.getAction();
+        Uri appLinkData = appLinkIntent.getData();
+        if (appLinkData!=null){
+            Log.d(TAG, "el intent llega con el token: " + appLinkData.getLastPathSegment());
+            Toast.makeText(this, R.string.un_momento, Toast.LENGTH_SHORT).show();
+            introVM.updateSavedToken(appLinkData.getLastPathSegment());
+        }
+            getToken();
     }
 
     /** Views & VM */
@@ -164,11 +184,12 @@ public class IntroActivity extends AppCompatActivity implements NewTokenDialog.N
     }
     /** Open Dialog new Token */
     private void openDialogNewToken(){
-        NewTokenDialog newTokenDialog = new NewTokenDialog();
+        NewTokenDialog newTokenDialog = NewTokenDialog.newInstance();
         newTokenDialog.show(getSupportFragmentManager(), "new Token");
     }
 
     /** Open Dialog Error Demo */
+    //todo crearlo bien
     private void errorDialog(DemoRepoResponse demoRepoResponse){
         DemoErrorDialog demoErrorDialog = new DemoErrorDialog(demoRepoResponse);
         demoErrorDialog.show(getSupportFragmentManager(), "Error en la demo");
@@ -178,8 +199,14 @@ public class IntroActivity extends AppCompatActivity implements NewTokenDialog.N
     @Override
     public void newTokenSaved(String newToken) {
         Log.d(TAG, "newTokenSaved: vuelve del dialog con el token: " + newToken);
+        Toast.makeText(this, R.string.un_momento, Toast.LENGTH_SHORT).show();
         introVM.updateSavedToken(newToken);
         getToken();
+    }
+
+    @Override
+    public void cancel() {
+        finish();
     }
 
     @Override

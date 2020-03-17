@@ -3,6 +3,9 @@ package com.rodrigo.kitdemoapp.Utils;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Base64;
@@ -19,6 +22,7 @@ public class ImagenManipulation {
 
             return  decodedByte;
         }
+
 
         public static Bitmap resize(Bitmap image, int maxWidth, int maxHeight) {
             if (maxHeight > 0 && maxWidth > 0) {
@@ -41,10 +45,33 @@ public class ImagenManipulation {
             }
         }
 
-        public static SliderItem convertBitmapToSliderItem(Bitmap bitmapToConvert){
+//        public static Bitmap resize2(Bitmap image, int maxWidth, int maxHeight) {
+//            Bitmap background = Bitmap.createBitmap((int)maxWidth, (int)maxHeight, Bitmap.Config.ARGB_8888);
+//
+//            float originalWidth = image.getWidth();
+//            float originalHeight = image.getHeight();
+//
+//            Canvas canvas = new Canvas(background);
+//
+//            float scale = maxWidth / originalWidth;
+//
+//            float xTranslation = 0.0f;
+//            float yTranslation = (maxHeight - originalHeight * scale) / 2.0f;
+//
+//            Matrix transformation = new Matrix();
+//            transformation.postTranslate(xTranslation, yTranslation);
+//            transformation.preScale(scale, scale);
+//
+//            Paint paint = new Paint();
+//            paint.setFilterBitmap(true);
+//
+//            canvas.drawBitmap(image, transformation, paint);
+//
+//            return background;
+//        }
 
-
-            SliderItem sliderItemconvert = new SliderItem(bitmapToConvert);
-            return sliderItemconvert;
-        }
+//        public static SliderItem convertBitmapToSliderItem(Bitmap bitmapToConvert){
+//
+//            return new SliderItem(bitmapToConvert);
+//        }
 }

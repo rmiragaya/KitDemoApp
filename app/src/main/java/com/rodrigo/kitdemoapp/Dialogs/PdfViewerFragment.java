@@ -1,9 +1,11 @@
 package com.rodrigo.kitdemoapp.Dialogs;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import android.os.FileObserver;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
@@ -78,7 +81,7 @@ public class PdfViewerFragment extends Fragment {
 //        Log.d(TAG, "file.isEmpty(): " + file.isEmpty());
 //        Log.d(TAG, "documentViewModel.toString(): " + documentViewModel.toString());
         PDFView pdfView = v.findViewById(R.id.pdfPreview);
-        File file = new File(fileDir);
+        final File file = new File(fileDir);
         pdfView.fromFile(file)
                 .swipeHorizontal(true)
                 .enableAnnotationRendering(true)
@@ -94,7 +97,31 @@ public class PdfViewerFragment extends Fragment {
             }
         });
 
+        ImageView shareButton = v.findViewById(R.id.shareBtnId);
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareFile(file);
+            }
+        });
+
         return v;
+    }
+
+    private void shareFile(File file) {
+        Intent intentShareFile = new Intent(Intent.ACTION_SEND);
+        if(file.exists()) {
+            intentShareFile.setType("application/pdf");
+
+            Uri uri = FileProvider.getUriForFile(getContext(),"com.rodrigo.kitdemoapp" , file);
+            intentShareFile.putExtra(Intent.EXTRA_STREAM, uri);
+
+            intentShareFile.putExtra(Intent.EXTRA_SUBJECT,
+                    "Sharing File...");
+            intentShareFile.putExtra(Intent.EXTRA_TEXT, "Sharing File...");
+
+            startActivity(Intent.createChooser(intentShareFile, "Compartir archivo"));
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

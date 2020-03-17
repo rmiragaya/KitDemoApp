@@ -336,7 +336,12 @@ public abstract class ScanActivityTemplate extends AppCompatActivity implements 
         Bitmap bitmap;
         try {
             bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriSelected);
-            bitmap = ImagenManipulation.resize(bitmap, 2480,3508);
+            Log.d(TAG, "bitmap.getHeight()" + bitmap.getHeight());
+            Log.d(TAG, "bitmap.getWidth()" + bitmap.getWidth());
+            bitmap = ImagenManipulation.resize(bitmap, 794,1123);
+//            bitmap = ImagenManipulation.resize2(bitmap, 794,1123);
+            Log.d(TAG, "bitmap.getHeight()" + bitmap.getHeight());
+            Log.d(TAG, "bitmap.getWidth()" + bitmap.getWidth());
             listaIamgenes.add(bitmap);
             addImage(bitmap);
         } catch (IOException e) {

@@ -296,7 +296,7 @@ public class Main2ActivityBorrrar extends AppCompatActivity implements SliderAda
         Bitmap bitmap;
         try {
             bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriSelected);
-            bitmap = ImagenManipulation.resize(bitmap, 2480,3508);
+            bitmap = ImagenManipulation.resize(bitmap, 794,1123);
             listaIamgenes.add(bitmap);
             addImage(bitmap);
         } catch (IOException e) {

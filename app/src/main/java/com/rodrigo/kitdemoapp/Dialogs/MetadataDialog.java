@@ -61,9 +61,10 @@ public class MetadataDialog extends AppCompatDialogFragment {
 
         TextView clienteName = view.findViewById(R.id.clienteId);
         if (documentViewModel.getClient()!= null){
+            Log.d(TAG, "titulo: " + documentViewModel.getClient());
             clienteName.setText(documentViewModel.getClient());
         } else {
-            clienteName.setText("Ejemplo");
+            clienteName.setText(R.string.ejemplo);
         }
 
 
@@ -117,6 +118,7 @@ public class MetadataDialog extends AppCompatDialogFragment {
             if (currentMetadata.getReason()!=null){
                 lista.add(new MetadataItem("Razón:", currentMetadata.getReason()));
             }
+
         }
         return lista;
     }

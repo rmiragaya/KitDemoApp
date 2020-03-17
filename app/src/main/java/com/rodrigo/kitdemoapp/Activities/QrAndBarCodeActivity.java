@@ -10,6 +10,7 @@ import com.rodrigo.kitdemoapp.Models.DocumentViewModel;
 import com.rodrigo.kitdemoapp.Models.MetadataClient;
 import com.rodrigo.kitdemoapp.Utils.Constant;
 import com.rodrigo.kitdemoapp.Utils.Tools;
+import com.shockwave.pdfium.PdfDocument;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -93,14 +94,14 @@ public class QrAndBarCodeActivity extends ScanActivityTemplate implements Digita
         proressBar();
 
         Demo demo = Tools.getDemoFromSharePreference(this);
-        MetadataClient metadataClient = Tools.getMetadataClientSharePreference(this);
+        MetadataClient metadataClient = new MetadataClient();
         Log.d(TAG, "demo: " + demo.toString());
         Log.d(TAG, "metadataClient: " + metadataClient.toString());
 
-        DocumentViewModel dvm = new DocumentViewModel(Integer.toString(demo.getId()),tipo, demo.getClientNameNew(),null, demo.getClient() ,metadataClient);
+        DocumentViewModel dvm = new DocumentViewModel(Integer.toString(demo.getId()),tipo, demo.getClientNameNew(),null, idCliente ,metadataClient);
         dvm.setDemoId(Integer.toString(demo.getId()));
 
-        String newDocumentName = fileName.split("-001")[0];
+        String newDocumentName = idCliente;
         Log.d(TAG, "newDocumentName: " + newDocumentName);
         dvm.getMetadataClient().setDocumentName(newDocumentName);
 

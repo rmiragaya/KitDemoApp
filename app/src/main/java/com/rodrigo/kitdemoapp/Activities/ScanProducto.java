@@ -44,15 +44,6 @@ ModDialog.DigitalizarModificacionDialogListener{
      * Open AltaBajaModificacionFragment fragment
      */
     private void openProductFragment() {
-//        constraintOfFragment = findViewById(R.id.constraintOfFragment);
-//        constraintOfFragment.setVisibility(View.VISIBLE);
-//        AltaBajaModificacionFragment fragment = AltaBajaModificacionFragment.newInstance();
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right, R.anim.slide_in_right, R.anim.slide_out_right);
-//        transaction.addToBackStack(null);
-//        transaction.add(R.id.frame_producto_layout, fragment, "PDF_FRAGMENT").commit();
-
         AltaBajaModificacionFragment fragmentDialog = AltaBajaModificacionFragment.newInstance();
         fragmentDialog.setCancelable(false);
         fragmentDialog.show(getSupportFragmentManager(), "Alta baja o modificacion");
@@ -173,6 +164,7 @@ ModDialog.DigitalizarModificacionDialogListener{
         }
 
         File file = new File(listFilesPath.get(0));
+        Log.d(TAG, "filepath: " + listFilesPath.get(0));
 
         List<DocumentVMandFile> documentVMandFileList = new ArrayList<>();
         documentVMandFileList.add(new DocumentVMandFile(dvm, file));
