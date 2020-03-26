@@ -32,7 +32,7 @@ import com.rodrigo.kitdemoapp.Utils.Tools;
 import com.rodrigo.kitdemoapp.ViewModel.IntroVM;
 
 public class IntroActivity extends AppCompatActivity implements NewTokenDialog.NewTokenDialogListener,
-                                                                    DemoErrorDialog.DemoErrorListener{
+        DemoErrorDialog.DemoErrorListener {
     private static final String TAG = "IntroActivity";
     private static final int METODOS_COMPLETADOS = 2;
 
@@ -57,27 +57,25 @@ public class IntroActivity extends AppCompatActivity implements NewTokenDialog.N
 
         getLinkIntent();
 
-
-
-
-
     }
 
     private void getLinkIntent() {
         // ATTENTION: This was auto-generated to handle app links.
         Intent appLinkIntent = getIntent();
-        String appLinkAction = appLinkIntent.getAction();
+//        String appLinkAction = appLinkIntent.getAction();
         Uri appLinkData = appLinkIntent.getData();
-        if (appLinkData!=null){
+        if (appLinkData != null) {
             Log.d(TAG, "el intent llega con el token: " + appLinkData.getLastPathSegment());
             Toast.makeText(this, R.string.un_momento, Toast.LENGTH_SHORT).show();
             introVM.updateSavedToken(appLinkData.getLastPathSegment());
         }
-            getToken();
+        getToken();
     }
 
-    /** Views & VM */
-    private void init(){
+    /**
+     * Views & VM
+     */
+    private void init() {
         //check if TLS is needed
         Tools.checkTls(this);
         //delete all files from files folder
@@ -89,7 +87,8 @@ public class IntroActivity extends AppCompatActivity implements NewTokenDialog.N
         // VM
         introVM = ViewModelProviders.of(this).get(IntroVM.class);
     }
-    private void splashAnimation(){
+
+    private void splashAnimation() {
         logo.setAlpha(0f);
         logo.setVisibility(View.VISIBLE);
 
@@ -104,8 +103,8 @@ public class IntroActivity extends AppCompatActivity implements NewTokenDialog.N
                 });
     }
 
-    private void textAnimation(){
-        ObjectAnimator animaton = ObjectAnimator.ofFloat(poweredBy,"translationY", 50f);
+    private void textAnimation() {
+        ObjectAnimator animaton = ObjectAnimator.ofFloat(poweredBy, "translationY", 50f);
         animaton.setDuration(1300);
         animaton.setInterpolator(new AccelerateDecelerateInterpolator());
         poweredBy.setAlpha(0f);
@@ -134,7 +133,7 @@ public class IntroActivity extends AppCompatActivity implements NewTokenDialog.N
         Log.d(TAG, "startNextActivity: call");
         metodos++;
         Log.d(TAG, "startNextActivity: metodos hechos " + metodos);
-        if (metodos != METODOS_COMPLETADOS){
+        if (metodos != METODOS_COMPLETADOS) {
             Log.d(TAG, "startNextActivity: return");
             return;
         }
@@ -146,15 +145,15 @@ public class IntroActivity extends AppCompatActivity implements NewTokenDialog.N
         finish();
     }
 
-    private void getToken(){
+    private void getToken() {
         introVM.getTokenSavedResponseLiveData().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 Log.d(TAG, "onChanged S: " + s);
-                if (s.isEmpty()){
+                if (s.isEmpty()) {
                     Log.d(TAG, "Token empty, open dialog to add token");
                     openDialogNewToken();
-                } else{
+                } else {
                     Log.d(TAG, "Token valid, go Get Demo with " + s);
                     getDemo(s);
                 }
@@ -162,13 +161,13 @@ public class IntroActivity extends AppCompatActivity implements NewTokenDialog.N
         });
     }
 
-    private void getDemo(final String demo){
+    private void getDemo(final String demo) {
         introVM.searchDemo(demo);
         introVM.getDemoFromToken().observe(this, new Observer<DemoRepoResponse>() {
             @Override
             public void onChanged(DemoRepoResponse demoRepoResponse) {
 
-                if (demoRepoResponse.getStatusResponse() == StatusResponse.OK){
+                if (demoRepoResponse.getStatusResponse() == StatusResponse.OK) {
                     Log.d(TAG, "OK");
                     //Save Token on SharePreference
                     Tools.saveDemoOnSharePreference(IntroActivity.this, demoRepoResponse.getDemo());
@@ -176,29 +175,44 @@ public class IntroActivity extends AppCompatActivity implements NewTokenDialog.N
                     return;
                 }
 
-                Tools.saveTokenOnSharePreference(IntroActivity.this, "");
-                    Log.d(TAG, "Error");
+                if (demoRepoResponse.getStatusResponse() == StatusResponse.ERROR_CONEXION) {
+                    Log.d(TAG, "CONEXION");
                     errorDialog(demoRepoResponse);
+                    return;
+                }
+
+                Tools.saveTokenOnSharePreference(IntroActivity.this, "");
+                Log.d(TAG, "Error");
+                errorDialog(demoRepoResponse);
             }
         });
     }
-    /** Open Dialog new Token */
-    private void openDialogNewToken(){
+
+    /**
+     * Open Dialog new Token
+     */
+    private void openDialogNewToken() {
         NewTokenDialog newTokenDialog = NewTokenDialog.newInstance();
+        newTokenDialog.setCancelable(false);
         newTokenDialog.show(getSupportFragmentManager(), "new Token");
     }
 
-    /** Open Dialog Error Demo */
+    /**
+     * Open Dialog Error Demo
+     */
     //todo crearlo bien
-    private void errorDialog(DemoRepoResponse demoRepoResponse){
+    private void errorDialog(DemoRepoResponse demoRepoResponse) {
         DemoErrorDialog demoErrorDialog = new DemoErrorDialog(demoRepoResponse);
         demoErrorDialog.show(getSupportFragmentManager(), "Error en la demo");
     }
 
-    /** New Token Dialog callback*/
+    /**
+     * New Token Dialog callback
+     */
     @Override
     public void newTokenSaved(String newToken) {
-        Log.d(TAG, "newTokenSaved: vuelve del dialog con el token: " + newToken);
+        Log.d(TAG, "newTokenSaved: vuelve del dialog con el token:" + newToken);
+        Log.d(TAG, "newToken.isEmpty(): " + newToken.isEmpty());
         Toast.makeText(this, R.string.un_momento, Toast.LENGTH_SHORT).show();
         introVM.updateSavedToken(newToken);
         getToken();
@@ -211,8 +225,10 @@ public class IntroActivity extends AppCompatActivity implements NewTokenDialog.N
 
     @Override
     public void addNewToken(Boolean addNewToken) {
-        if (addNewToken){
+        if (addNewToken) {
             openDialogNewToken();
+        } else {
+            finish();
         }
     }
 }

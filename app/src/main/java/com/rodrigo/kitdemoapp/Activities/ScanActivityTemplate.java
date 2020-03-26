@@ -13,6 +13,7 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -31,6 +32,7 @@ import android.widget.Toast;
 import com.rodrigo.kitdemoapp.Adapter.SliderAdapter;
 import com.rodrigo.kitdemoapp.ConvertImageInTiff;
 import com.rodrigo.kitdemoapp.Dialogs.DemoErrorDialog;
+import com.rodrigo.kitdemoapp.Dialogs.DocumentErrorDialog;
 import com.rodrigo.kitdemoapp.Dialogs.FinalizacionDeTrabajoDialog;
 import com.rodrigo.kitdemoapp.Models.DemoRepoResponse;
 import com.rodrigo.kitdemoapp.Models.DocumentVMandFile;
@@ -51,7 +53,8 @@ import java.util.List;
 
 public abstract class ScanActivityTemplate extends AppCompatActivity implements SliderAdapter.OnItemClickListener,
         FinalizacionDeTrabajoDialog.FinalizacionDeTrabajoListener,
-        ConvertImageInTiff.IImageConvertedCallback {
+        ConvertImageInTiff.IImageConvertedCallback,
+        DocumentErrorDialog.ErrorDocumentInterface{
     private static final String TAG = "ScanActivityTemplate";
 
 
@@ -75,6 +78,8 @@ public abstract class ScanActivityTemplate extends AppCompatActivity implements 
     private ConstraintLayout progressBar;
 
     private TextView titulo;
+
+    private long backPressTime;
 
 
     @Override
@@ -203,6 +208,7 @@ public abstract class ScanActivityTemplate extends AppCompatActivity implements 
      * @return the string to change the title of the activity
      */
     public abstract String getActivityTitle();
+
 
 
     private void convert(){
@@ -386,9 +392,11 @@ public abstract class ScanActivityTemplate extends AppCompatActivity implements 
                 Log.d(TAG, "onChanged: call");
                 if (documentViewModelResponse.getStatusResponse() == StatusResponse.OK){
                     archivoSubidoListener();
+                    return;
                 }
-                //todo: crear cartel de error
-//                errorDialog(documentViewModelResponse);
+
+                //for error
+                errorDialog(documentViewModelResponse);
             }
         });
     }
@@ -413,16 +421,16 @@ public abstract class ScanActivityTemplate extends AppCompatActivity implements 
     }
 
     public void cartelFinalizacion(){
-        //todo: poner cartel de finalización
         FinalizacionDeTrabajoDialog finalizacionDeTrabajo = FinalizacionDeTrabajoDialog.newInstance();
         finalizacionDeTrabajo.setCancelable(false);
         finalizacionDeTrabajo.show(getSupportFragmentManager(), "finalizacion fialog");
     }
 
     /** Open Dialog Error Demo */
-    private void errorDialog(DemoRepoResponse demoRepoResponse){
-        DemoErrorDialog demoErrorDialog = new DemoErrorDialog(demoRepoResponse);
-        demoErrorDialog.show(getSupportFragmentManager(), "Error en la demo");
+    private void errorDialog(DocumentViewModelResponse demoRepoResponse){
+        //todo crear DocumentErrorDialog
+        DocumentErrorDialog documentErrorDialog = DocumentErrorDialog.newInstance(demoRepoResponse.getMensajeError());
+        documentErrorDialog.show(getSupportFragmentManager(), "Error en la subida de documentos");
     }
 
     @Override
@@ -455,5 +463,25 @@ public abstract class ScanActivityTemplate extends AppCompatActivity implements 
     private void changeTitle(){
         Log.d(TAG, "changeTitle call: " + getActivityTitle());
         titulo.setText(getActivityTitle());
+    }
+
+    @Override
+    public void onErrorDocumentOkBtn() {
+        //todo vuelve del ok del error
+//        proressBar();
+        this.recreate();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+
+        if (backPressTime + 2000 > System.currentTimeMillis()){
+            super.onBackPressed();
+            return;
+        } else {
+            Toast.makeText(getBaseContext(), "Presiona nuevamente para salir", Toast.LENGTH_SHORT).show();
+        }
+        backPressTime = System.currentTimeMillis();
     }
 }

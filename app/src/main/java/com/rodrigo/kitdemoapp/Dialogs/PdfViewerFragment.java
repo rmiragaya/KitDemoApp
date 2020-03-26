@@ -1,10 +1,12 @@
 package com.rodrigo.kitdemoapp.Dialogs;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
@@ -13,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -116,18 +120,10 @@ public class PdfViewerFragment extends Fragment {
             Uri uri = FileProvider.getUriForFile(getContext(),"com.rodrigo.kitdemoapp" , file);
             intentShareFile.putExtra(Intent.EXTRA_STREAM, uri);
 
-            intentShareFile.putExtra(Intent.EXTRA_SUBJECT,
-                    "Sharing File...");
+            intentShareFile.putExtra(Intent.EXTRA_SUBJECT, "Sharing File...");
             intentShareFile.putExtra(Intent.EXTRA_TEXT, "Sharing File...");
 
             startActivity(Intent.createChooser(intentShareFile, "Compartir archivo"));
-        }
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
         }
     }
 
@@ -156,11 +152,39 @@ public class PdfViewerFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void fragmentFinish();
     }
 
     private void showDialogWithInfo(){
         MetadataDialog metadataDialog = MetadataDialog.newInstance(documentViewModel);
         metadataDialog.show(getChildFragmentManager(), "Metadata Dialog");
+    }
+
+
+    @Nullable
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        Animation anim = AnimationUtils.loadAnimation(getActivity(), nextAnim);
+
+        anim.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+                Log.d(TAG, "Animation started.");
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                Log.d(TAG, "Animation repeating.");
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                Log.d(TAG, "Animation ended.");
+                mListener.fragmentFinish();
+            }
+        });
+
+        return anim;
     }
 }

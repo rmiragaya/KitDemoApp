@@ -56,12 +56,15 @@ public class DemoRepo {
 
                     data.setValue(demoRepoResponse);
                     Log.d(TAG, "Demo.toString: " + response.body().toString());
+                    return;
                 }
+
+                data.setValue(new DemoRepoResponse(null, StatusResponse.ERROR_CONEXION));
             }
 
             @Override
             public void onFailure(Call<Demo> call, Throwable t) {
-                demoRepoResponse = new DemoRepoResponse(null, StatusResponse.ERROR_CONEXION, "Error Inesperado");
+                demoRepoResponse = new DemoRepoResponse(null, StatusResponse.ERROR_CONEXION, "Verifique la red y vuelva a intentarlo");
                 Log.d(TAG, "onFailure: call");
                 Log.d(TAG, "t.getMessage(): " + t.getMessage());
                 Log.d(TAG, "t.getCause(): " + t.getCause());

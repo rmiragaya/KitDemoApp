@@ -230,6 +230,7 @@ public class DocumentRepo {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.d(TAG, "onFailure: call");
+                data.setValue( new DocumentViewModelResponse(null, StatusResponse.ERROR_CONEXION, "Error de Conexión"));
             }
         });
         return data;

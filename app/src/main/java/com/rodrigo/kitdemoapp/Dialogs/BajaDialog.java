@@ -2,6 +2,7 @@ package com.rodrigo.kitdemoapp.Dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -84,12 +85,31 @@ public class BajaDialog extends AppCompatDialogFragment {
         Dialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+
         return dialog;
     }
 
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    Log.d(TAG, "onCancel: call");
+                    listener.closeAndOpenProductDialog();
+                }
+            });
+        }
+    }
+
+
+
     public interface DigitalizarBajaDialogListener {
         void onDigitalizacionBajaDialogRespons(String documentNAme, String razonBaja, String otros);
+        void closeAndOpenProductDialog();
     }
 
 

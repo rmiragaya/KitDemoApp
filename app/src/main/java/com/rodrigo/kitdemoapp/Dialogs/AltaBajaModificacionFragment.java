@@ -2,6 +2,7 @@ package com.rodrigo.kitdemoapp.Dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -54,6 +55,7 @@ public class AltaBajaModificacionFragment extends AppCompatDialogFragment {
         Button baja = v.findViewById(R.id.bajaBtn);
         Button mod = v.findViewById(R.id.modificacionBtn);
 
+
         alta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +80,7 @@ public class AltaBajaModificacionFragment extends AppCompatDialogFragment {
             }
         });
 
+
         return v;
     }
 
@@ -95,6 +98,12 @@ public class AltaBajaModificacionFragment extends AppCompatDialogFragment {
         if (dialog != null) {
             dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    mListener.close();
+                }
+            });
         }
     }
 
@@ -124,5 +133,6 @@ public class AltaBajaModificacionFragment extends AppCompatDialogFragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onAltaBajaOModSelect(String string);
+        void close();
     }
 }

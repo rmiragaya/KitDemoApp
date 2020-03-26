@@ -1,5 +1,6 @@
 package com.rodrigo.kitdemoapp.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -30,7 +31,7 @@ ModDialog.DigitalizarModificacionDialogListener{
     private String serieName, reasonLow, codeHigh, documentName;
     private String title = "Producto";
     private List<String> listFilesPath = new ArrayList<>();
-
+    private AltaBajaModificacionFragment fragmentDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +45,11 @@ ModDialog.DigitalizarModificacionDialogListener{
      * Open AltaBajaModificacionFragment fragment
      */
     private void openProductFragment() {
-        AltaBajaModificacionFragment fragmentDialog = AltaBajaModificacionFragment.newInstance();
-        fragmentDialog.setCancelable(false);
+        Log.d(TAG, "openProductFragment: call");
+        fragmentDialog = AltaBajaModificacionFragment.newInstance();
+        fragmentDialog.setCancelable(true);
         fragmentDialog.show(getSupportFragmentManager(), "Alta baja o modificacion");
+
     }
 
     @Override
@@ -71,26 +74,31 @@ ModDialog.DigitalizarModificacionDialogListener{
         }
     }
 
+    @Override
+    public void close() {
+        Log.d(TAG, "close: call");
+        //todo si cambio el backpress poner finish?
+        finish();
+    }
+
     private void openAltaDialog() {
         AltaDialog bajaDialog = AltaDialog.newInstance();
-        bajaDialog.setCancelable(false);
+//        bajaDialog.setCancelable(false);
         bajaDialog.show(getSupportFragmentManager(), "Alta Dialog");
     }
 
     private void openBajaDialog() {
 
         BajaDialog altaDialog = BajaDialog.newInstance();
-        altaDialog.setCancelable(false);
+//        altaDialog.setCancelable(false);
         altaDialog.show(getSupportFragmentManager(), "Baja Dialog");
     }
 
     private void openModDialog() {
         ModDialog modDialog = ModDialog.newInstance();
-        modDialog.setCancelable(false);
+//        modDialog.setCancelable(false);
         modDialog.show(getSupportFragmentManager(), "Mod Dialog");
     }
-
-
 
     /**
      * When file converted
@@ -142,6 +150,12 @@ ModDialog.DigitalizarModificacionDialogListener{
         this.documentName = documentName;
     }
 
+    @Override
+    public void closeAndOpenProductDialog() {
+        Log.d(TAG, "closeAndOpenProductDialog: call");
+        openProductFragment();
+    }
+
     private List<DocumentVMandFile> postAllDocuments() {
         proressBar();
 
@@ -161,6 +175,10 @@ ModDialog.DigitalizarModificacionDialogListener{
             case "High":
                 dvm.getMetadataClient().setCode(codeHigh);
                 break;
+        }
+
+        if (demo.getClientNameNew()!=null){
+            dvm.setClient(demo.getClientNameNew());
         }
 
         File file = new File(listFilesPath.get(0));
@@ -185,4 +203,7 @@ ModDialog.DigitalizarModificacionDialogListener{
         this.serieName = "Modification";
         this.documentName = documentName;
     }
+
+
+
 }

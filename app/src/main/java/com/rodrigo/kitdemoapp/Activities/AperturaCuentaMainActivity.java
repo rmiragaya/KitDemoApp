@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -78,7 +80,6 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
         String logoEnString = demo.getLogo();
 
 
-        //todo: tomar esto del VM
         if (nombreEmpresa!=null && !nombreEmpresa.isEmpty()){
             TextView nombreEmpresaTextView = findViewById(R.id.nombreEmpresa);
             nombreEmpresaTextView.setText(nombreEmpresa);
@@ -297,14 +298,20 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
                     idClienteBuscado = idCliente;
 
                     Snackbar snackbar = Snackbar.make(maxLayout,"Ususario " + clientRepoResponse.getCliente().getBusinessName() + " encontrado", Snackbar.LENGTH_SHORT);
-                    snackbar.getView().setBackgroundColor(ContextCompat.getColor(AperturaCuentaMainActivity.this, R.color.colorPrimary));
+                    View view = snackbar.getView();
+                    view.setBackgroundColor(ContextCompat.getColor(AperturaCuentaMainActivity.this, R.color.colorPrimary));
+                    FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)view.getLayoutParams();
+                    params.gravity = Gravity.BOTTOM;
                     snackbar.show();
                     llenarCampos(clientRepoResponse.getCliente());
                 } else {
                     setAllInputsEmpty();
                     idClienteBuscado = "";
                     Snackbar snackbar = Snackbar.make(maxLayout,"Ususario no encontrado", Snackbar.LENGTH_SHORT);
-                    snackbar.getView().setBackgroundColor(ContextCompat.getColor(AperturaCuentaMainActivity.this, R.color.colorPrimary));
+                    View view = snackbar.getView();
+                    view.setBackgroundColor(ContextCompat.getColor(AperturaCuentaMainActivity.this, R.color.colorPrimary));
+                    FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)view.getLayoutParams();
+                    params.gravity = Gravity.BOTTOM;
                     snackbar.show();
                     Log.d(TAG, "error call");
                 }

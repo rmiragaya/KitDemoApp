@@ -14,6 +14,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,6 +44,7 @@ public class DocumentPreviewActivity extends AppCompatActivity implements DocuFi
     public static final String RECORTEFIRMA = "Recorte de Firma";
     public static final String EJEMPLOS = "Ejemplos";
     private DocumentPreviewVM documentPreviewVM;
+    private View coverView;
 
     private int tabSelected;
 
@@ -62,6 +64,7 @@ public class DocumentPreviewActivity extends AppCompatActivity implements DocuFi
 
         TabLayout tabLayout = findViewById(R.id.tabDocumentsId);
         ViewPager viewPager = findViewById(R.id.document_view_pager);
+        coverView = findViewById(R.id.coverView);
 
         TextView nombreEmpresaTextView = findViewById(R.id.nombreMarcaEmpresaPrev);
         nombreEmpresaTextView.setText(documentPreviewVM.getNombreEmpresa());
@@ -107,6 +110,10 @@ public class DocumentPreviewActivity extends AppCompatActivity implements DocuFi
     @Override
     public void onDocuClick(final Document documentSeleccionado) {
         Log.d(TAG, "descargar y mostrar el : " + documentSeleccionado.getId());
+
+        //todo evitar Clicks ******************************************************************************************
+        coverView.setVisibility(View.VISIBLE);
+
         deleteAllFiles();
         //si el docu es ejemplo
         if (documentSeleccionado.getClient().equalsIgnoreCase("Carátula")){
@@ -127,6 +134,10 @@ public class DocumentPreviewActivity extends AppCompatActivity implements DocuFi
                 if (documentFileRepoResponse.getStatusResponse() == StatusResponse.OK){
                     Log.d(TAG, "Ok");
                     getDocumentViewModel(documentSeleccionado.getId(),documentFileRepoResponse.getDocumentFile().getAbsolutePath());
+
+
+
+
                     return;
                 }
                 //todo open error dialog
@@ -149,7 +160,6 @@ public class DocumentPreviewActivity extends AppCompatActivity implements DocuFi
                     Log.d(TAG, "Ok");
                     DocumentViewModel documentViewModel = new DocumentViewModel(null, null, null, null, null, null);
                     openPdfVewFragment(documentFileRepoResponse.getDocumentFile().getAbsolutePath(), documentViewModel);
-                    return;
                 }
                 //todo open error dialog
 //                errorDialog();
@@ -166,6 +176,8 @@ public class DocumentPreviewActivity extends AppCompatActivity implements DocuFi
                 if (documentViewModelResponse.getStatusResponse() == StatusResponse.OK){
                     Log.d(TAG, "Ok");
                     openPdfVewFragment(pdfFileDir, documentViewModelResponse.getDocumentViewModel());
+
+
                 }
             }
         });
@@ -178,11 +190,14 @@ public class DocumentPreviewActivity extends AppCompatActivity implements DocuFi
         transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right, R.anim.slide_in_right, R.anim.slide_out_right);
         transaction.addToBackStack(null);
         transaction.add(R.id.fragment_pdfv_container, fragment, "PDF_FRAGMENT").commit();
+
+
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-        Log.d(TAG, "onFragmentInteraction: uri " + uri);
+    public void fragmentFinish() {
+        //todo: volver a dejar clicks ******************************************************************************************
+        coverView.setVisibility(View.INVISIBLE);
     }
 
 

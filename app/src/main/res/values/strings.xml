@@ -12,6 +12,8 @@
     <string name="token_expirado">El token se encuentra expirado. Por favor contactarse con la mesa de ayuda.</string>
     <string name="error_conexion">Error de conexión. Verifique la red y configuración</string>
     <string name="error_demo">Error de la Demo</string>
+    <string name="error_document">Error de conexión</string>
+    <string name="error_document_sub">Verifique la red y vuelva a intentarlo</string>
     <string name="abrir">Abrir</string>
     <string name="informacion_de_cliente">Información de Cliente</string>
     <string name="nombre_raz_social">Nombre ó Razón Social</string>

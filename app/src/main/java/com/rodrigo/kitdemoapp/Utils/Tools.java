@@ -48,10 +48,10 @@ public class Tools {
     @SuppressLint("ApplySharedPref")
     public static void saveTokenOnSharePreference(Context context, String token) {
         Log.d(TAG, "token a guardar: " + token);
-        if (token.isEmpty()){
-            Log.d(TAG, "URL VACIA: ERROR ");
-            return;
-        }
+//        if (token.isEmpty()){
+//            Log.d(TAG, "URL VACIA: ERROR ");
+//            return;
+//        }
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Tools.TOKEN, token);

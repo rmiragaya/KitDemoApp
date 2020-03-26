@@ -27,7 +27,7 @@
         </provider>
 
         <activity android:name=".Activities.ScanRecorteFirma"></activity>
-        <activity android:name=".Activities.QrAndBarCodeActivity" />
+        <activity android:name=".Activities.ScanQrAndBarCodeActivity" />
         <activity android:name=".Activities.ScanFiliatorio" />
         <activity android:name=".Activities.ScanActivityTemplate" />
         <activity android:name=".Activities.ScanProducto" />
@@ -37,7 +37,7 @@
         <activity android:name=".Activities.SeleccionSerieDocumentalActivity" />
         <activity android:name=".Activities.Select_App_Activity" />
         <activity android:name=".Activities.IntroActivity">
-            <tools:validation testUrl="http://kitdemoapp.com.ar/open/" />
+            <tools:validation testUrl="https://webkitdemohp.soluciones.com.ar/configuration/android/"/>
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,9 +51,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="http"
-                    android:host="kitdemoapp.com.ar"
-                    android:pathPrefix="/open/" />
+                    android:scheme="https"
+                    android:host="webkitdemohp.soluciones.com.ar"
+                    android:pathPrefix="/configuration/android/" />
             </intent-filter>
         </activity>
         <activity android:name=".Activities.AperturaCuentaMainActivity" />

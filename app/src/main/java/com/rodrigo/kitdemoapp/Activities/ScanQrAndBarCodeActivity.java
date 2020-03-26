@@ -16,7 +16,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QrAndBarCodeActivity extends ScanActivityTemplate implements DigitalizarQroBarcodeDialog.DigitalizarQroBarcodeDialogListener {
+public class ScanQrAndBarCodeActivity extends ScanActivityTemplate implements DigitalizarQroBarcodeDialog.DigitalizarQroBarcodeDialogListener {
 
     private static final String TAG = "QrAndBarCodeActivity";
     private String filePath, fileName, idCliente;

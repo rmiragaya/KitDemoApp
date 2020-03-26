@@ -64,7 +64,7 @@ public class CodigoBarraYQRActivity extends AppCompatActivity {
     }
 
     private void startQRAndCodBarra(String qrOrBarcode) {
-        Intent intent = new Intent(this, QrAndBarCodeActivity.class);
+        Intent intent = new Intent(this, ScanQrAndBarCodeActivity.class);
         intent.putExtra(Constant.QRORCORBARRA, qrOrBarcode);
         startActivity(intent);
     }

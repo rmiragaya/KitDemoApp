@@ -45,14 +45,14 @@ public class Select_App_Activity extends AppCompatActivity {
             "Apertura de Cuenta",
             "Clasificación de Documentos",
             "Captura de Firma",
-            "Impresión de Documentos"
+            "Visualización de Documentos"
     };
 
     private String[] about_description_array = {
             "Cargue la documentación de sus clientes de forma rápida y sencilla.",
             "Direccione sus documentos de forma dinámica mediante la lectura de códigos de Barra/QR.",
             "Recorte la firma de sus clientes plasmadas en formularios de manera dinámica.",
-            "Accede a la cuenta e imprime la documentación previamente ingresada"
+            "Accede a la cuenta, visualiza y comparte la documentación previamente ingresada"
     };
 
     private String[] about_images_array = {

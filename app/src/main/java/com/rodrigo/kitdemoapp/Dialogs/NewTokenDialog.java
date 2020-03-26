@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -43,31 +44,63 @@ public class NewTokenDialog extends AppCompatDialogFragment {
 
         builder.setView(v)
                 .setTitle(getActivity().getResources().getString(R.string.new_token_tittle))
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Log.d(TAG, "cancelar click");
-                        listener.cancel();
-                    }
-                })
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String tokenString = tokenEditText.getText().toString();
-                        Log.d(TAG, "Ok: Click con el token: " + tokenString);
-                        if (tokenString.isEmpty()){
-                            tokenEditText.setError("Campo Obligatorio");
-                        } else {
-                            listener.newTokenSaved(tokenString);
-                        }
-                    }
-                });
+                .setNegativeButton("Cancelar", null)
+//                        new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        Log.d(TAG, "cancelar click");
+//                        listener.cancel();
+//                    }
+//                })
+                .setPositiveButton("Ok", null);
+//                        new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        String tokenString = tokenEditText.getText().toString();
+//                        Log.d(TAG, "Ok: Click con el token: " + tokenString);
+//                        //TODO ME DEJA NO PONER NADA
+//                        if (tokenString.isEmpty() || tokenString.equalsIgnoreCase(" ")){
+//                            tokenEditText.setError("Campo Obligatorio");
+//                        } else {
+//                            listener.newTokenSaved(tokenString);
+//                        }
+//                    }
+//                });
 
         tokenEditText = v.findViewById(R.id.token_editText_id);
 
-        Dialog dialog = builder.create();
+        final Dialog dialog = builder.create();
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.setCanceledOnTouchOutside(false);
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                Button positive = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                positive.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String tokenString = tokenEditText.getText().toString();
+                        Log.d(TAG, "Ok: Click con el token: " + tokenString);
+                        //TODO ME DEJA NO PONER NADA
+                        if (tokenString.isEmpty() || tokenString.equalsIgnoreCase(" ")){
+                            tokenEditText.setError("Campo Obligatorio");
+                        } else {
+                            listener.newTokenSaved(tokenString);
+                            dismiss();
+                        }
+                    }
+                });
+                Button negative = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEGATIVE);
+                negative.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d(TAG, "cancelar click");
+                        listener.cancel();
+                    }
+                });
+            }
+        });
 
         return dialog;
     }

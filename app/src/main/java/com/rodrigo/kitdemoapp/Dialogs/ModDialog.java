@@ -2,7 +2,9 @@ package com.rodrigo.kitdemoapp.Dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -47,14 +49,30 @@ public class ModDialog extends AppCompatDialogFragment {
                     listener.onDigitalizacionModificacionDialogRespons(nombreDocumento.getText().toString().toLowerCase().trim());
                     dismiss();
                 }
-
             }
         });
 
         Dialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+
         return dialog;
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    Log.d(TAG, "onCancel: call");
+                    listener.closeAndOpenProductDialog();
+                }
+            });
+        }
     }
 
     private boolean validarCampos(){
@@ -79,5 +97,7 @@ public class ModDialog extends AppCompatDialogFragment {
 
     public interface DigitalizarModificacionDialogListener {
         void onDigitalizacionModificacionDialogRespons(String documentName);
+        void closeAndOpenProductDialog();
     }
+
 }
