@@ -97,12 +97,15 @@ public class ScanFiliatorio extends ScanActivityTemplate implements DocuFiliaDia
     private void openDialogDigitalizacion(int numeroDeDialog){
         Log.d(TAG, "openDialogDigitalizacion: call con " + numeroDeDialog);
         DocuFiliaDialog dialog = DocuFiliaDialog.newInstance(numeroDeDialog);
+        dialog.setCancelable(false);
         dialog.show(getSupportFragmentManager(), "fragment " + numeroDeDialog);
     }
 
     @Override
     public void backFromDialog() {
         Log.d(TAG, "volvió de DocuFiliaDialog");
+        //todo: esto debiera ser privado, no debiera llamarlo desde aca. "A Enzo no le gusta esto"
+        changeTitle();
     }
 
 

@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Base64;
@@ -18,45 +19,22 @@ public class ImagenManipulation {
         public static Bitmap loadImage(String logoEnString){
 
             byte[] decodeString = Base64.decode(logoEnString, Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodeString, 0 , decodeString.length);
-
-            return  decodedByte;
+            return BitmapFactory.decodeByteArray(decodeString, 0 , decodeString.length);
         }
 
 
-//        public static Bitmap resize(Bitmap image, int maxWidth, int maxHeight) {
-//            if (maxHeight > 0 && maxWidth > 0) {
-//                int width = image.getWidth();
-//                int height = image.getHeight();
-//                float ratioBitmap = (float) width / (float) height;
-//                float ratioMax = (float) maxWidth / (float) maxHeight;
-//
-//                int finalWidth = maxWidth;
-//                int finalHeight = maxHeight;
-//                if (ratioMax > ratioBitmap) {
-//                    finalWidth = (int) ((float)maxHeight * ratioBitmap);
-//                } else {
-//                    finalHeight = (int) ((float)maxWidth / ratioBitmap);
-//                }
-//                image = Bitmap.createScaledBitmap(image, finalWidth, finalHeight, true);
-//                return image;
-//            } else {
-//                return image;
-//            }
-//        }
+        public static Bitmap resize(Bitmap originalImage, int width, int height) {
+            Bitmap background = Bitmap.createBitmap((int)width, (int)height, Bitmap.Config.ARGB_8888);
 
-        public static Bitmap resize(Bitmap image, int maxWidth, int maxHeight) {
-            Bitmap background = Bitmap.createBitmap((int)maxWidth, (int)maxHeight, Bitmap.Config.ARGB_8888);
-
-            float originalWidth = image.getWidth();
-            float originalHeight = image.getHeight();
+            float originalWidth = originalImage.getWidth();
+            float originalHeight = originalImage.getHeight();
 
             Canvas canvas = new Canvas(background);
 
-            float scale = maxWidth / originalWidth;
+            float scale = width / originalWidth;
 
             float xTranslation = 0.0f;
-            float yTranslation = (maxHeight - originalHeight * scale) / 2.0f;
+            float yTranslation = (height - originalHeight * scale) / 2.0f;
 
             Matrix transformation = new Matrix();
             transformation.postTranslate(xTranslation, yTranslation);
@@ -65,13 +43,34 @@ public class ImagenManipulation {
             Paint paint = new Paint();
             paint.setFilterBitmap(true);
 
-            canvas.drawBitmap(image, transformation, paint);
+            canvas.drawBitmap(originalImage, transformation, paint);
 
             return background;
         }
 
-//        public static SliderItem convertBitmapToSliderItem(Bitmap bitmapToConvert){
-//
-//            return new SliderItem(bitmapToConvert);
-//        }
+    /**
+     *Da la imagen scale,sin cortarla, pero no rellena los espacios en blanco.
+     */
+    public static Bitmap scaleBitmapAndKeepRation(Bitmap targetBmp,int reqWidthInPixels,int reqHeightInPixels)
+    {
+        Matrix matrix = new Matrix();
+        matrix .setRectToRect(new RectF(0, 0, targetBmp.getWidth(), targetBmp.getHeight()), new RectF(0, 0, reqWidthInPixels, reqHeightInPixels), Matrix.ScaleToFit.CENTER);
+        Bitmap scaledBitmap = Bitmap.createBitmap(targetBmp, 0, 0, targetBmp.getWidth(), targetBmp.getHeight(), matrix, true);
+        return overlay(scaledBitmap);
+    }
+
+    /**
+     *Combina 2 Bitmaps centrados (rellena lso espacios en blanco)
+     */
+    private static Bitmap overlay(Bitmap bmp2) {
+            Bitmap bmp1 = Bitmap.createBitmap((int)794, (int)1123, Bitmap.Config.ARGB_8888);
+        Bitmap bmOverlay = Bitmap.createBitmap(bmp1.getWidth(), bmp1.getHeight(), bmp1.getConfig());
+        Canvas canvas = new Canvas(bmOverlay);
+        float with = (794 - bmp2.getWidth()) / 2;
+        float higth = (1123 - bmp2.getHeight()) / 2;
+        canvas.drawBitmap(bmp1, new Matrix(), null);
+        canvas.drawBitmap(bmp2, with,higth, null);
+        return bmOverlay;
+    }
+
 }

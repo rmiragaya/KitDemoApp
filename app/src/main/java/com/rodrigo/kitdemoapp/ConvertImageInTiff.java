@@ -6,19 +6,16 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.os.AsyncTask;
-import android.os.Environment;
+
 import android.util.Log;
 
-import com.rodrigo.kitdemoapp.Activities.Main2ActivityBorrrar;
-import com.rodrigo.kitdemoapp.Activities.MainActivity;
+
 import com.rodrigo.kitdemoapp.Activities.ScanActivityTemplate;
 
 import org.beyka.tiffbitmapfactory.CompressionScheme;
 import org.beyka.tiffbitmapfactory.Orientation;
 import org.beyka.tiffbitmapfactory.TiffSaver;
 
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ConvertImageInTiff extends AsyncTask<Void, Void, Void> {

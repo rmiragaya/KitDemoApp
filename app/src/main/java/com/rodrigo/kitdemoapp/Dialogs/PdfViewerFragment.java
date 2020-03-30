@@ -11,6 +11,7 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import android.os.FileObserver;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,7 @@ public class PdfViewerFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String FILE = "filePassed";
     private static final String DOCUMENTVIEWMODEL = "documentViewModel";
+    private long mLastClickTime = 0;
 
     private String fileDir;
     private DocumentViewModel documentViewModel;
@@ -97,6 +99,12 @@ public class PdfViewerFragment extends Fragment {
         buttonDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // mis-clicking prevention, using threshold of 1000 ms
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
+                // mis-clicking prevention, using threshold of 1000 ms
                 showDialogWithInfo();
             }
         });

@@ -26,12 +26,16 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".Activities.ScanRecorteFirma"></activity>
-        <activity android:name=".Activities.ScanQrAndBarCodeActivity" />
-        <activity android:name=".Activities.ScanFiliatorio" />
-        <activity android:name=".Activities.ScanActivityTemplate" />
-        <activity android:name=".Activities.ScanProducto" />
-        <activity android:name=".Activities.Main2ActivityBorrrar" />
+        <activity android:name=".Activities.ScanRecorteFirma"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.ScanQrAndBarCodeActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.ScanFiliatorio"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.ScanActivityTemplate"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.ScanProducto"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Activities.DocumentPreviewActivity" />
         <activity android:name=".Activities.CodigoBarraYQRActivity" />
         <activity android:name=".Activities.SeleccionSerieDocumentalActivity" />

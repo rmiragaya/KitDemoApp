@@ -111,7 +111,6 @@ public class DocumentPreviewActivity extends AppCompatActivity implements DocuFi
     public void onDocuClick(final Document documentSeleccionado) {
         Log.d(TAG, "descargar y mostrar el : " + documentSeleccionado.getId());
 
-        //todo evitar Clicks ******************************************************************************************
         coverView.setVisibility(View.VISIBLE);
 
         deleteAllFiles();

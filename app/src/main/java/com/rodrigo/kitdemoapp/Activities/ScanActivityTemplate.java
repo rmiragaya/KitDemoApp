@@ -344,7 +344,9 @@ public abstract class ScanActivityTemplate extends AppCompatActivity implements 
             bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriSelected);
             Log.d(TAG, "bitmap.getHeight()" + bitmap.getHeight());
             Log.d(TAG, "bitmap.getWidth()" + bitmap.getWidth());
-            bitmap = ImagenManipulation.resize(bitmap, 794,1123);
+//            bitmap = ImagenManipulation.resize(bitmap, 794,1123);
+//            bitmap = ImagenManipulation.overlay(bitmap);
+            bitmap = ImagenManipulation.scaleBitmapAndKeepRation(bitmap, 794,1123);
 //            bitmap = ImagenManipulation.resize2(bitmap, 794,1123);
             Log.d(TAG, "bitmap.getHeight()" + bitmap.getHeight());
             Log.d(TAG, "bitmap.getWidth()" + bitmap.getWidth());
@@ -459,22 +461,18 @@ public abstract class ScanActivityTemplate extends AppCompatActivity implements 
         finish();
     }
 
-    //todo cambiar a private
-    private void changeTitle(){
+    public void changeTitle(){
         Log.d(TAG, "changeTitle call: " + getActivityTitle());
         titulo.setText(getActivityTitle());
     }
 
     @Override
     public void onErrorDocumentOkBtn() {
-        //todo vuelve del ok del error
-//        proressBar();
         this.recreate();
     }
 
     @Override
     public void onBackPressed() {
-
 
         if (backPressTime + 2000 > System.currentTimeMillis()){
             super.onBackPressed();

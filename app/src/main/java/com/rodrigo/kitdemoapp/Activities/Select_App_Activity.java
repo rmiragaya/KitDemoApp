@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,7 @@ public class Select_App_Activity extends AppCompatActivity {
     private ViewPager viewPager;
     private View cargandoProgresBar;
     private SelectAppVM selectAppVM;
+    private long mLastClickTime = 0;
 
     private String[] about_title_array = {
             "Apertura de Cuenta",
@@ -146,7 +148,7 @@ public class Select_App_Activity extends AppCompatActivity {
             ((TextView) view.findViewById(R.id.description)).setText(about_description_array[position]);
             ((LottieAnimationView) view.findViewById(R.id.image)).setAnimation(about_images_array[position]);
 
-            Button btnNext = view.findViewById(R.id.btn_next);
+            final Button btnNext = view.findViewById(R.id.btn_next);
 
             btnNext.setText(getResources().getString(R.string.abrir));
 
@@ -155,7 +157,18 @@ public class Select_App_Activity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
+                    Log.d(TAG, "1er click call");
+
+                    //previene DClicks
+                    if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                        Log.d(TAG, "2do click");
+                        return;
+                    }
+                    mLastClickTime = SystemClock.elapsedRealtime();
+                    //previene DClicks
                     cargandoDialog();
+
+
 
                     int current = viewPager.getCurrentItem();
 
@@ -164,25 +177,25 @@ public class Select_App_Activity extends AppCompatActivity {
                         case 0:
                             intent = new Intent(v.getContext(), AperturaCuentaMainActivity.class);
                             startActivity(intent);
-                            finish();
+//                            finish();
                             break;
                         case 1:
                             intent = new Intent(v.getContext(), CodigoBarraYQRActivity.class);
                             startActivity(intent);
-                            finish();
+//                            finish();
                             break;
                         case 2:
                             intent = new Intent(v.getContext(), ScanRecorteFirma.class);
                             startActivity(intent);
-                            finish();
+//                            finish();
                             break;
                         case 3:
                             //carga documentos para luego mandarlos a Preview Activity
                             getListaDocumentos();
                             break;
                     }
+                    cargandoDialog();
 //                    Tools.saveViewPagerPosition(getApplicationContext(), current);
-
                 }
 
             });
@@ -245,6 +258,7 @@ public class Select_App_Activity extends AppCompatActivity {
     }
 
     private void cargandoDialog() {
+        Log.d(TAG, "cargandoDialog: call");
         if (cargandoProgresBar.getVisibility() == View.GONE) {
             cargandoProgresBar.setVisibility(View.VISIBLE);
         } else {

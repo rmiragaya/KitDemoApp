@@ -355,13 +355,13 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
         calendar.setText(fecha);
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(this, Select_App_Activity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-        finish();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        Intent intent = new Intent(this, Select_App_Activity.class);
+//        startActivity(intent);
+//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+//        finish();
+//    }
 
 
     private void llenarCampos(Cliente demoCliente) {
