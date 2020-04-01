@@ -2,6 +2,7 @@ package com.rodrigo.kitdemoapp.Dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -92,6 +93,20 @@ public class DigitalizarQroBarcodeDialog extends AppCompatDialogFragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    listener.close();
+                }
+            });
+        }
+    }
+
+    @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
@@ -104,5 +119,6 @@ public class DigitalizarQroBarcodeDialog extends AppCompatDialogFragment {
 
     public interface DigitalizarQroBarcodeDialogListener {
         void onDigitalizarQroBarcodeDialog(String idCliente);
+        void close();
     }
 }

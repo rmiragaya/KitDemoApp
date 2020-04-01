@@ -32,7 +32,7 @@ public class ScanRecorteFirma extends ScanActivityTemplate implements RecorteFir
 
     private void openRecorteFirmaDialog() {
         RecorteFirmaDialog dialog = RecorteFirmaDialog.newInstance();
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.show(getSupportFragmentManager(), "Recorte Firma Dialog");
     }
 
@@ -87,6 +87,13 @@ public class ScanRecorteFirma extends ScanActivityTemplate implements RecorteFir
     @Override
     public void onDigitalizarRecorteFirmaDialog(String idClienteIngresado) {
         idCliente = idClienteIngresado;
+    }
+
+    @Override
+    public void close() {
+        Log.d(TAG, "close: call");
+        //todo si cambio el backpress poner finish?
+        finish();
     }
 
 

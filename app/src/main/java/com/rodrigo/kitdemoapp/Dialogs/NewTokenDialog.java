@@ -45,27 +45,7 @@ public class NewTokenDialog extends AppCompatDialogFragment {
         builder.setView(v)
                 .setTitle(getActivity().getResources().getString(R.string.new_token_tittle))
                 .setNegativeButton("Cancelar", null)
-//                        new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        Log.d(TAG, "cancelar click");
-//                        listener.cancel();
-//                    }
-//                })
                 .setPositiveButton("Ok", null);
-//                        new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        String tokenString = tokenEditText.getText().toString();
-//                        Log.d(TAG, "Ok: Click con el token: " + tokenString);
-//                        //TODO ME DEJA NO PONER NADA
-//                        if (tokenString.isEmpty() || tokenString.equalsIgnoreCase(" ")){
-//                            tokenEditText.setError("Campo Obligatorio");
-//                        } else {
-//                            listener.newTokenSaved(tokenString);
-//                        }
-//                    }
-//                });
 
         tokenEditText = v.findViewById(R.id.token_editText_id);
 

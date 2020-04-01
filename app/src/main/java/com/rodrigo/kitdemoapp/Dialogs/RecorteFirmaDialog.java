@@ -2,9 +2,13 @@ package com.rodrigo.kitdemoapp.Dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -42,18 +46,18 @@ public class RecorteFirmaDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.recorte_firma_dialog, null);
         builder.setView(view);
 
-        //todo bind views
-
         editText = view.findViewById(R.id.editTextRecorteFirmaDialog);
         subtitulo = view.findViewById(R.id.subtituloRecorteFirma);
         subtitulo.setText(R.string.ingrese_id);
-
-        //todo set Buttons y OnclickListener + listener
 
         btnSiguiente = view.findViewById(R.id.btnSiguienteRecorteFirmaDialog);
         btnSiguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (editText.getText().length() == 0){
+                    editText.setError("Campo requerido");
+                    return;
+                }
                 dismiss();
                 listener.onDigitalizarRecorteFirmaDialog(editText.getText().toString());
             }
@@ -63,6 +67,20 @@ public class RecorteFirmaDialog extends AppCompatDialogFragment {
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         return dialog;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    listener.close();
+                }
+            });
+        }
     }
 
 
@@ -81,5 +99,6 @@ public class RecorteFirmaDialog extends AppCompatDialogFragment {
 
     public interface RecorteFirmaDialogListener {
         void onDigitalizarRecorteFirmaDialog(String idCliente);
+        void close();
     }
 }

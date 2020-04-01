@@ -103,7 +103,7 @@ public class ScanFiliatorio extends ScanActivityTemplate implements DocuFiliaDia
 
     @Override
     public void backFromDialog() {
-        Log.d(TAG, "volvió de DocuFiliaDialog");
+        Log.d(TAG, "back from DocuFiliaDialog");
         //todo: esto debiera ser privado, no debiera llamarlo desde aca. "A Enzo no le gusta esto"
         changeTitle();
     }

@@ -185,6 +185,7 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
     }
 
     private void toggleFabMode(View v) {
+        removeSetErrors();
         rotate = ViewAnimation.rotateFab(v, !rotate);
         if (rotate) {
             ViewAnimation.showIn(lyt_mic);
@@ -195,6 +196,11 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
             ViewAnimation.showOut(lyt_call);
             back_drop.setVisibility(View.GONE);
         }
+    }
+
+    private void removeSetErrors() {
+        razonSocial.setError(null);
+        mail.setError(null);
     }
 
     private void initList() {

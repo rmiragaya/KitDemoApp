@@ -77,7 +77,6 @@ ModDialog.DigitalizarModificacionDialogListener{
     @Override
     public void close() {
         Log.d(TAG, "close: call");
-        //todo si cambio el backpress poner finish?
         finish();
     }
 

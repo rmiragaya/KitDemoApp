@@ -1,6 +1,7 @@
 package com.rodrigo.kitdemoapp.Dialogs;
 
 import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -23,6 +24,7 @@ import android.widget.ImageView;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
+import com.rodrigo.kitdemoapp.Activities.DocumentPreviewActivity;
 import com.rodrigo.kitdemoapp.Models.DocumentViewModel;
 import com.rodrigo.kitdemoapp.R;
 
@@ -93,6 +95,7 @@ public class PdfViewerFragment extends Fragment {
                 .enableAnnotationRendering(true)
                 .scrollHandle(new DefaultScrollHandle(getActivity()))
                 .spacing(10)
+                .enableAntialiasing(true)
                 .load();
 
         Button buttonDialog = v.findViewById(R.id.showDialogButton);
@@ -172,7 +175,13 @@ public class PdfViewerFragment extends Fragment {
     @Nullable
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        Animation anim = AnimationUtils.loadAnimation(getActivity(), nextAnim);
+        Animation anim;
+        if (enter) {
+            anim =  AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_right);
+        } else {
+            anim =  AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_right);
+        }
+
 
         anim.setAnimationListener(new Animation.AnimationListener() {
 

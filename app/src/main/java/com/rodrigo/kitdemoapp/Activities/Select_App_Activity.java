@@ -7,9 +7,11 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.SystemClock;
@@ -17,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,6 +27,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.jakewharton.processphoenix.ProcessPhoenix;
+import com.rodrigo.kitdemoapp.Dialogs.BottomSheetFragment;
+import com.rodrigo.kitdemoapp.Dialogs.DeleteTokenDialog;
 import com.rodrigo.kitdemoapp.Models.Demo;
 import com.rodrigo.kitdemoapp.Models.Document;
 import com.rodrigo.kitdemoapp.Models.DocumentsRepoResponse;
@@ -34,7 +43,7 @@ import com.rodrigo.kitdemoapp.ViewModel.SelectAppVM;
 
 import java.util.ArrayList;
 
-public class Select_App_Activity extends AppCompatActivity {
+public class Select_App_Activity extends AppCompatActivity implements BottomSheetFragment.BottomSheetListener, DeleteTokenDialog.DeleteTokenListener {
     private static final String TAG = "Select_App_Activity";
 
     private static final int MAX_STEP = 4;
@@ -42,6 +51,8 @@ public class Select_App_Activity extends AppCompatActivity {
     private View cargandoProgresBar;
     private SelectAppVM selectAppVM;
     private long mLastClickTime = 0;
+    private FloatingActionButton fab_add;
+
 
     private String[] about_title_array = {
             "Apertura de Cuenta",
@@ -79,6 +90,14 @@ public class Select_App_Activity extends AppCompatActivity {
         Log.d(TAG, "demo en la nueva Activity: " + demo.toString());
         /* For Testing */
 
+        fab_add = findViewById(R.id.fabModalSheet);
+        fab_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openBottomSheet();
+            }
+        });
+
         cargandoProgresBar = findViewById(R.id.selectAppProgressDialog);
         viewPager = findViewById(R.id.view_pager);
 
@@ -90,7 +109,11 @@ public class Select_App_Activity extends AppCompatActivity {
 //        viewPager.setCurrentItem(Tools.getViewPagerPosition(this));
 
         selectAppVM = ViewModelProviders.of(this).get(SelectAppVM.class);
+
+
     }
+
+
 
     private void bottomProgressDots(int current_index) {
         LinearLayout dotsLayout = findViewById(R.id.layoutDots);
@@ -131,6 +154,20 @@ public class Select_App_Activity extends AppCompatActivity {
         }
     };
 
+    @Override
+    public void onBorrarTokenButtonPress() {
+        Log.d(TAG, "onBorrarTokenButtonPress: call, now open a dialog to delete Token and Reset App");
+        DeleteTokenDialog deleteTokenDialog = DeleteTokenDialog.newInstance();
+        deleteTokenDialog.show(getSupportFragmentManager(), "DeleteToken Dialog");
+    }
+
+    @Override
+    public void deleteToken() {
+        Log.d(TAG, "deleteToken: BORRAR EL TOKEN Y REINICIAR");
+        Tools.saveTokenOnSharePreference(this, "");
+        ProcessPhoenix.triggerRebirth(this);
+    }
+
     /**
      * View pager adapter
      */
@@ -165,10 +202,8 @@ public class Select_App_Activity extends AppCompatActivity {
                         return;
                     }
                     mLastClickTime = SystemClock.elapsedRealtime();
-                    //previene DClicks
+
                     cargandoDialog();
-
-
 
                     int current = viewPager.getCurrentItem();
 
@@ -195,7 +230,6 @@ public class Select_App_Activity extends AppCompatActivity {
                             break;
                     }
                     cargandoDialog();
-//                    Tools.saveViewPagerPosition(getApplicationContext(), current);
                 }
 
             });
@@ -264,5 +298,12 @@ public class Select_App_Activity extends AppCompatActivity {
         } else {
             cargandoProgresBar.setVisibility(View.GONE);
         }
+    }
+
+
+    private void openBottomSheet() {
+        Log.d(TAG, "openBottomSheet: call");
+        BottomSheetFragment bottomSheetFragment = BottomSheetFragment.newInstance();
+        bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheet");
     }
 }

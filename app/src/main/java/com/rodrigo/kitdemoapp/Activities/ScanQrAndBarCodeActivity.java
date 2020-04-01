@@ -89,6 +89,13 @@ public class ScanQrAndBarCodeActivity extends ScanActivityTemplate implements Di
         this.idCliente = idCliente;
     }
 
+    @Override
+    public void close() {
+        Log.d(TAG, "close: call");
+        //todo si cambio el backpress poner finish?
+        finish();
+    }
+
 
     private List<DocumentVMandFile> postAllDocuments() {
         proressBar();

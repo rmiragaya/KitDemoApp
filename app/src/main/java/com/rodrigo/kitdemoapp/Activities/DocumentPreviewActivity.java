@@ -1,6 +1,7 @@
 package com.rodrigo.kitdemoapp.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
@@ -45,6 +46,7 @@ public class DocumentPreviewActivity extends AppCompatActivity implements DocuFi
     public static final String EJEMPLOS = "Ejemplos";
     private DocumentPreviewVM documentPreviewVM;
     private View coverView;
+    private PdfViewerFragment fragment;
 
     private int tabSelected;
 
@@ -109,9 +111,8 @@ public class DocumentPreviewActivity extends AppCompatActivity implements DocuFi
 
     @Override
     public void onDocuClick(final Document documentSeleccionado) {
-        Log.d(TAG, "descargar y mostrar el : " + documentSeleccionado.getId());
-
         coverView.setVisibility(View.VISIBLE);
+        Log.d(TAG, "descargar y mostrar el : " + documentSeleccionado.getId());
 
         deleteAllFiles();
         //si el docu es ejemplo
@@ -183,8 +184,20 @@ public class DocumentPreviewActivity extends AppCompatActivity implements DocuFi
     }
 
     private void openPdfVewFragment(String pdfFile, DocumentViewModel documentViewModel){
-        PdfViewerFragment fragment = PdfViewerFragment.newInstance(pdfFile, documentViewModel);
         FragmentManager fragmentManager = getSupportFragmentManager();
+
+        Fragment currentFragment = fragmentManager.findFragmentById(R.id.fragment_pdfv_container);
+
+        fragment = PdfViewerFragment.newInstance(pdfFile, documentViewModel);
+
+        if (currentFragment!= null){
+            if (currentFragment.getClass().equals(fragment.getClass())) {
+                Log.d(TAG, "dobleClick Prevented");
+                return;
+            }
+        }
+
+
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right, R.anim.slide_in_right, R.anim.slide_out_right);
         transaction.addToBackStack(null);
@@ -195,7 +208,6 @@ public class DocumentPreviewActivity extends AppCompatActivity implements DocuFi
 
     @Override
     public void fragmentFinish() {
-        //todo: volver a dejar clicks ******************************************************************************************
         coverView.setVisibility(View.INVISIBLE);
     }
 
