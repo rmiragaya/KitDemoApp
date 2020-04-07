@@ -146,7 +146,7 @@
                             android:id="@+id/editTextRazonSocialId"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
+                            android:layout_marginStart="16dp"
                             android:layout_marginEnd="8dp"
                             android:hint="@string/nombre_raz_social"
                             android:inputType="textNoSuggestions"
@@ -156,7 +156,7 @@
                             app:layout_constraintBottom_toBottomOf="@+id/icono2"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/icono2"
-                            app:layout_constraintTop_toTopOf="@+id/icono2"/>
+                            app:layout_constraintTop_toTopOf="@+id/icono2" />
 
                         <ImageView
                             android:id="@+id/icono3"
@@ -174,7 +174,7 @@
                             android:id="@+id/edittextMailId"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
+                            android:layout_marginStart="16dp"
                             android:layout_marginEnd="8dp"
                             android:hint="@string/email"
                             android:inputType="textEmailAddress"
@@ -184,7 +184,7 @@
                             app:layout_constraintBottom_toBottomOf="@+id/icono3"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/icono3"
-                            app:layout_constraintTop_toTopOf="@+id/icono3"/>
+                            app:layout_constraintTop_toTopOf="@+id/icono3" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -305,12 +305,12 @@
                             android:id="@+id/spinnerPaisesId"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="32dp"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginEnd="32dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tituloPais"/>
+                            app:layout_constraintTop_toBottomOf="@+id/tituloPais" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
@@ -359,7 +359,7 @@
                             android:gravity="center"
                             android:text="Fry, May 12 2017"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="@android:color/black"
+                            android:textColor="@color/soluWhite"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/fechaTitulo" />
@@ -394,8 +394,6 @@
         android:layout_alignParentEnd="false"
         android:layout_alignParentRight="false"
         android:layout_alignParentBottom="false"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
         android:gravity="end"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -439,10 +437,10 @@
                 android:layout_marginRight="18dp"
                 android:layout_marginBottom="10dp"
                 android:clickable="false"
-                app:srcCompat="@drawable/ic_search"
                 app:backgroundTint="@android:color/white"
                 app:fabSize="mini"
                 app:rippleColor="@android:color/black"
+                app:srcCompat="@drawable/ic_search"
                 app:tint="@color/colorPrimary" />
 
             <View
@@ -489,10 +487,10 @@
                 android:layout_marginRight="18dp"
                 android:layout_marginBottom="10dp"
                 android:clickable="false"
-                app:srcCompat="@drawable/ic_next"
                 app:backgroundTint="@android:color/white"
                 app:fabSize="mini"
                 app:rippleColor="@android:color/black"
+                app:srcCompat="@drawable/ic_next"
                 app:tint="@color/colorPrimary" />
 
             <View

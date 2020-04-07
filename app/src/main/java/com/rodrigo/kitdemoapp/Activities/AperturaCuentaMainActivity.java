@@ -230,7 +230,17 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
 
     private boolean camposLLenos(){
         String mailParaVerificar =  mail.getText().toString();
-        return (!razonSocial.getText().toString().isEmpty() || !mailParaVerificar.isEmpty());
+        Log.d(TAG, "razonSocial length: " + razonSocial.getText().toString().trim().length());
+        Log.d(TAG, "camposLLenos: *" + razonSocial.getText().toString().trim() + "*");
+        Log.d(TAG, "razonSocial.isEmpty(): " + !razonSocial.getText().toString().trim().isEmpty());
+        Log.d(TAG, "!mailParaVerificar.isEmpty(): " + !mailParaVerificar.isEmpty());
+
+        if (razonSocial.getText().toString().trim().isEmpty()){
+            return false;
+        }
+
+        return !mailParaVerificar.isEmpty();
+
     }
 
     private boolean esMailValido(CharSequence target){

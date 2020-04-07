@@ -11,7 +11,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/docuFiliatoriosId"
         android:layout_width="0dp"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
@@ -22,7 +22,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -31,7 +31,7 @@
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imageView2"
                 android:layout_width="0dp"
-                android:layout_height="150dp"
+                android:layout_height="130dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/chekimage"
@@ -61,10 +61,11 @@
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="16dp"
                 android:gravity="center"
                 android:text="Digitalice la documentación respaldatoria de su cliente."
                 android:textSize="14sp"
@@ -74,15 +75,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/productosId"
         android:layout_width="0dp"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="24dp"
         app:cardCornerRadius="10dp"
@@ -92,7 +93,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/docuFiliatoriosId" >
+        app:layout_constraintTop_toBottomOf="@+id/docuFiliatoriosId">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -101,7 +102,7 @@
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imageView1"
                 android:layout_width="0dp"
-                android:layout_height="150dp"
+                android:layout_height="130dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/firmaimage"
@@ -112,7 +113,7 @@
                 app:riv_corner_radius_top_right="10dip"
                 app:riv_mutate_background="true"
                 app:riv_oval="false"
-                app:riv_tile_mode="clamp"/>
+                app:riv_tile_mode="clamp" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -130,11 +131,11 @@
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="16dp"
                 android:gravity="center"
                 android:text="Administre los productos de sus clientes."
                 android:textSize="14sp"

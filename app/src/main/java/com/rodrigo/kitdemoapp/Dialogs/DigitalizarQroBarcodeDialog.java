@@ -76,7 +76,7 @@ public class DigitalizarQroBarcodeDialog extends AppCompatDialogFragment {
         btnSiguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (editText.getText().length() == 0){
+                if (editText.getText().toString().trim().length() == 0){
                     editText.setError("Campo requerido");
                     return;
                 }

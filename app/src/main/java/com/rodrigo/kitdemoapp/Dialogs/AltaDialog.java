@@ -83,10 +83,10 @@ public class AltaDialog extends AppCompatDialogFragment {
     }
 
     private boolean validarCampos(){
-        if (editText.length() == 0){
+        if (editText.getText().toString().trim().length() == 0){
             editText.setError("Campo obligatorio");
             return false;
-        } else if (nombreDocumento.length() == 0){
+        } else if (nombreDocumento.getText().toString().trim().length() == 0){
             nombreDocumento.setError("Campo obligatorio");
             return false;
         }

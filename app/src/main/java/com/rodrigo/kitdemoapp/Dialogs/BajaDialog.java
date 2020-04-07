@@ -128,7 +128,7 @@ public class BajaDialog extends AppCompatDialogFragment {
 
 
     private boolean validarCampos(){
-        if (nombreDocumento.length() == 0){
+        if (nombreDocumento.getText().toString().trim().length() == 0){
             nombreDocumento.setError("Campo obligatorio");
             return false;
         }
