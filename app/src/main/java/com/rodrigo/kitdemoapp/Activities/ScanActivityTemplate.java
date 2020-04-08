@@ -13,7 +13,6 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -30,17 +29,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rodrigo.kitdemoapp.Adapter.SliderAdapter;
-import com.rodrigo.kitdemoapp.ConvertImageInTiff;
-import com.rodrigo.kitdemoapp.Dialogs.DemoErrorDialog;
+import com.rodrigo.kitdemoapp.Utils.ConvertImageInTiff;
 import com.rodrigo.kitdemoapp.Dialogs.DocumentErrorDialog;
 import com.rodrigo.kitdemoapp.Dialogs.FinalizacionDeTrabajoDialog;
-import com.rodrigo.kitdemoapp.Models.DemoRepoResponse;
 import com.rodrigo.kitdemoapp.Models.DocumentVMandFile;
 import com.rodrigo.kitdemoapp.Models.DocumentViewModel;
 import com.rodrigo.kitdemoapp.Models.DocumentViewModelResponse;
 import com.rodrigo.kitdemoapp.Models.SliderItem;
 import com.rodrigo.kitdemoapp.R;
-import com.rodrigo.kitdemoapp.StatusResponse;
+import com.rodrigo.kitdemoapp.Utils.StatusResponse;
 import com.rodrigo.kitdemoapp.Utils.ImagenManipulation;
 import com.rodrigo.kitdemoapp.Utils.Tools;
 import com.rodrigo.kitdemoapp.ViewModel.Main2ActivityVM;

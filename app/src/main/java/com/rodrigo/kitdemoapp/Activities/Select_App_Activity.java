@@ -7,11 +7,9 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.SystemClock;
@@ -19,7 +17,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,8 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.rodrigo.kitdemoapp.Dialogs.BottomSheetFragment;
@@ -37,7 +32,7 @@ import com.rodrigo.kitdemoapp.Models.Demo;
 import com.rodrigo.kitdemoapp.Models.Document;
 import com.rodrigo.kitdemoapp.Models.DocumentsRepoResponse;
 import com.rodrigo.kitdemoapp.R;
-import com.rodrigo.kitdemoapp.StatusResponse;
+import com.rodrigo.kitdemoapp.Utils.StatusResponse;
 import com.rodrigo.kitdemoapp.Utils.Tools;
 import com.rodrigo.kitdemoapp.ViewModel.SelectAppVM;
 

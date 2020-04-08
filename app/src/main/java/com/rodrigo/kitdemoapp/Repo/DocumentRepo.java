@@ -1,6 +1,5 @@
 package com.rodrigo.kitdemoapp.Repo;
 
-import android.graphics.Bitmap;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -14,7 +13,7 @@ import com.rodrigo.kitdemoapp.Models.DocumentViewModelResponse;
 import com.rodrigo.kitdemoapp.Models.DocumentsRepoResponse;
 import com.rodrigo.kitdemoapp.Retrofit.KitDemoApi;
 import com.rodrigo.kitdemoapp.Retrofit.RetrofitRequest;
-import com.rodrigo.kitdemoapp.StatusResponse;
+import com.rodrigo.kitdemoapp.Utils.StatusResponse;
 
 import java.io.File;
 import java.io.FileOutputStream;

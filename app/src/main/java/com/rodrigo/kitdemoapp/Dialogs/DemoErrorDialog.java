@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.rodrigo.kitdemoapp.Models.DemoRepoResponse;
 import com.rodrigo.kitdemoapp.R;
-import com.rodrigo.kitdemoapp.StatusResponse;
+import com.rodrigo.kitdemoapp.Utils.StatusResponse;
 
 public class DemoErrorDialog extends AppCompatDialogFragment {
     private static final String TAG = "DemoErrorDialog";

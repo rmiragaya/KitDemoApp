@@ -1,4 +1,4 @@
-package com.rodrigo.kitdemoapp;
+package com.rodrigo.kitdemoapp.Utils;
 
 public enum StatusResponse {
     OK,

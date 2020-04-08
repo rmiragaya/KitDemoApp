@@ -1,4 +1,4 @@
-package com.rodrigo.kitdemoapp;
+package com.rodrigo.kitdemoapp.Utils;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

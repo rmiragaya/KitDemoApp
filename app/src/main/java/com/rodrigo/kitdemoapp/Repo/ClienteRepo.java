@@ -9,7 +9,7 @@ import com.rodrigo.kitdemoapp.Models.ClientRepoResponse;
 import com.rodrigo.kitdemoapp.Models.Cliente;
 import com.rodrigo.kitdemoapp.Retrofit.KitDemoApi;
 import com.rodrigo.kitdemoapp.Retrofit.RetrofitRequest;
-import com.rodrigo.kitdemoapp.StatusResponse;
+import com.rodrigo.kitdemoapp.Utils.StatusResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;

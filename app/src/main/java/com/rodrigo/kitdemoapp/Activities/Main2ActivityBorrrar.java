@@ -1,45 +1,5 @@
 package com.rodrigo.kitdemoapp.Activities;
 
-import android.Manifest;
-import android.content.ContentValues;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.CompositePageTransformer;
-import androidx.viewpager2.widget.MarginPageTransformer;
-import androidx.viewpager2.widget.ViewPager2;
-
-import com.rodrigo.kitdemoapp.Adapter.SliderAdapter;
-import com.rodrigo.kitdemoapp.ConvertImageInTiff;
-import com.rodrigo.kitdemoapp.Models.SliderItem;
-import com.rodrigo.kitdemoapp.R;
-import com.rodrigo.kitdemoapp.Utils.Constant;
-import com.rodrigo.kitdemoapp.Utils.ImagenManipulation;
-import com.rodrigo.kitdemoapp.Utils.Tools;
-import com.rodrigo.kitdemoapp.ViewModel.Main2ActivityVM;
-import com.theartofdev.edmodo.cropper.CropImage;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 //public class Main2ActivityBorrrar extends AppCompatActivity implements SliderAdapter.OnItemClickListener {
 //    private static final String TAG = "Main2ActivityBorrrar";
 //

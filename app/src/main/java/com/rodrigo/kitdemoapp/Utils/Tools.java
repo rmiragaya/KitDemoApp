@@ -1,14 +1,10 @@
 package com.rodrigo.kitdemoapp.Utils;
 
 import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.LiveData;
 import androidx.preference.PreferenceManager;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -18,8 +14,6 @@ import com.google.gson.Gson;
 import com.rodrigo.kitdemoapp.Models.Demo;
 import com.rodrigo.kitdemoapp.Models.DemoRepoResponse;
 import com.rodrigo.kitdemoapp.Models.MetadataClient;
-import com.rodrigo.kitdemoapp.R;
-import com.rodrigo.kitdemoapp.StatusResponse;
 
 import java.io.File;
 import java.text.DateFormat;

@@ -19,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.rodrigo.kitdemoapp.ConvertImageInTiff;
 import com.rodrigo.kitdemoapp.Retrofit.KitDemoApi;
 import com.rodrigo.kitdemoapp.Models.Document;
 import com.rodrigo.kitdemoapp.R;

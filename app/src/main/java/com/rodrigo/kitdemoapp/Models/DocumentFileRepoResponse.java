@@ -2,7 +2,7 @@ package com.rodrigo.kitdemoapp.Models;
 
 import androidx.annotation.NonNull;
 
-import com.rodrigo.kitdemoapp.StatusResponse;
+import com.rodrigo.kitdemoapp.Utils.StatusResponse;
 
 import java.io.File;
 

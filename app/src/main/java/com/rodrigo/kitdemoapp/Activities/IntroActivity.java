@@ -8,7 +8,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,15 +18,12 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.rodrigo.kitdemoapp.Dialogs.DemoErrorDialog;
 import com.rodrigo.kitdemoapp.Dialogs.NewTokenDialog;
-import com.rodrigo.kitdemoapp.Models.Demo;
 import com.rodrigo.kitdemoapp.Models.DemoRepoResponse;
 import com.rodrigo.kitdemoapp.R;
-import com.rodrigo.kitdemoapp.StatusResponse;
+import com.rodrigo.kitdemoapp.Utils.StatusResponse;
 import com.rodrigo.kitdemoapp.Utils.Tools;
 import com.rodrigo.kitdemoapp.ViewModel.IntroVM;
 

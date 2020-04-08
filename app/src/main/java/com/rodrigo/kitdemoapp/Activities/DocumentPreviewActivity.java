@@ -9,10 +9,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +26,7 @@ import com.rodrigo.kitdemoapp.Models.DocumentFileRepoResponse;
 import com.rodrigo.kitdemoapp.Models.DocumentViewModel;
 import com.rodrigo.kitdemoapp.Models.DocumentViewModelResponse;
 import com.rodrigo.kitdemoapp.R;
-import com.rodrigo.kitdemoapp.StatusResponse;
+import com.rodrigo.kitdemoapp.Utils.StatusResponse;
 import com.rodrigo.kitdemoapp.Utils.ImagenManipulation;
 import com.rodrigo.kitdemoapp.ViewModel.DocumentPreviewVM;
 

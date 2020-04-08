@@ -38,7 +38,7 @@ import com.rodrigo.kitdemoapp.Models.Demo;
 import com.rodrigo.kitdemoapp.Models.MetadataClient;
 import com.rodrigo.kitdemoapp.Models.PaisItem;
 import com.rodrigo.kitdemoapp.R;
-import com.rodrigo.kitdemoapp.StatusResponse;
+import com.rodrigo.kitdemoapp.Utils.StatusResponse;
 import com.rodrigo.kitdemoapp.Utils.ImagenManipulation;
 import com.rodrigo.kitdemoapp.Utils.Tools;
 import com.rodrigo.kitdemoapp.Utils.ViewAnimation;
