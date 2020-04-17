@@ -48,6 +48,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Actividad de la cual van a extender toda las actividades que requieran hacer las foto y esnacear
+ * (ScanProducto, ScanFiliatorio, ScanQrAndBarcode y ScanRecorteFirma)
+ * */
 public abstract class ScanActivityTemplate extends AppCompatActivity implements SliderAdapter.OnItemClickListener,
         FinalizacionDeTrabajoDialog.FinalizacionDeTrabajoListener,
         ConvertImageInTiff.IImageConvertedCallback,
@@ -100,8 +104,6 @@ public abstract class ScanActivityTemplate extends AppCompatActivity implements 
                     Toast.makeText(getApplicationContext(), "Agregue una imagen", Toast.LENGTH_SHORT).show();
                     return;
                 }
-//                siguiente();
-//                changeTitle();
                 convert();
             }
         });
@@ -194,19 +196,20 @@ public abstract class ScanActivityTemplate extends AppCompatActivity implements 
 
 
     /**
-     *
      * @return all the DocumentVMandFile to upload
      */
     public abstract List<DocumentVMandFile> getAllDocumentsAndFiles();
 
 
     /**
-     *
      * @return the string to change the title of the activity
      */
     public abstract String getActivityTitle();
 
 
+    @Override
+    public void onItemClick(int position) {
+    }
 
     private void convert(){
         //todo cambiar el Asynktask por VM
@@ -249,11 +252,17 @@ public abstract class ScanActivityTemplate extends AppCompatActivity implements 
         });
     }
 
+    /**
+     * Agrega la imagen a la lista
+     * */
     private void addImage(Bitmap imageToAdd){
         main2ActivityVM.addImage(imageToAdd);
         viewPager2.setCurrentItem(list.size());
     }
 
+    /**
+     * Borra la imagen de la lista
+     * */
     private void deleteImage(int position){
         Log.d(TAG, "deleteImage: en la posicion " + position);
         main2ActivityVM.deleteImage(position);
@@ -286,27 +295,37 @@ public abstract class ScanActivityTemplate extends AppCompatActivity implements 
 
     }
 
+    /**
+     * Abre la galeria de fotos
+     * */
     private void openGallery(){
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, FROMGALLERY);
     }
 
+    /**
+     * Abre la camara
+     */
     private void openCamara(){
         ContentValues values = new ContentValues();
         imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
         Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         takePicture.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-        startActivityForResult(takePicture, FROMPHOTO);//zero can be replaced with any action code (called requestCode)
+        startActivityForResult(takePicture, FROMPHOTO);
     }
 
+
+    /**
+     * Listener cuando vuelve de la galeria, camara o CropImageActivity
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         Log.d(TAG, "onActivityResult: call. RequestCode: " + requestCode + " resultCode: " + resultCode );
         super.onActivityResult(requestCode, resultCode, data);
-
-
-
         switch (requestCode) {
             case FROMPHOTO:
                 Log.d(TAG, "case FROMPHOTO");
@@ -341,10 +360,7 @@ public abstract class ScanActivityTemplate extends AppCompatActivity implements 
             bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriSelected);
             Log.d(TAG, "bitmap.getHeight()" + bitmap.getHeight());
             Log.d(TAG, "bitmap.getWidth()" + bitmap.getWidth());
-//            bitmap = ImagenManipulation.resize(bitmap, 794,1123);
-//            bitmap = ImagenManipulation.overlay(bitmap);
             bitmap = ImagenManipulation.scaleBitmapAndKeepRation(bitmap, 794,1123);
-//            bitmap = ImagenManipulation.resize2(bitmap, 794,1123);
             Log.d(TAG, "bitmap.getHeight()" + bitmap.getHeight());
             Log.d(TAG, "bitmap.getWidth()" + bitmap.getWidth());
             listaIamgenes.add(bitmap);
@@ -356,14 +372,13 @@ public abstract class ScanActivityTemplate extends AppCompatActivity implements 
         Log.d(TAG, "listaImagenes size " + listaIamgenes.size());
     }
 
+    /**
+     * Inicia la artividad CropImage, de la libreria Image-Cropper
+     * @param imageUri
+     */
     private void startCropImageActivity(Uri imageUri) {
         CropImage.activity(imageUri)
                 .start(this);
-    }
-
-    @Override
-    public void onItemClick(int position) {
-//        deleteImage(position);
     }
 
     /**
@@ -393,7 +408,6 @@ public abstract class ScanActivityTemplate extends AppCompatActivity implements 
                     archivoSubidoListener();
                     return;
                 }
-
                 //for error
                 errorDialog(documentViewModelResponse);
             }
@@ -425,7 +439,9 @@ public abstract class ScanActivityTemplate extends AppCompatActivity implements 
         finalizacionDeTrabajo.show(getSupportFragmentManager(), "finalizacion fialog");
     }
 
-    /** Open Dialog Error Demo */
+    /**
+     * Open Dialog Error Demo
+     * */
     private void errorDialog(DocumentViewModelResponse demoRepoResponse){
         //todo crear DocumentErrorDialog
         DocumentErrorDialog documentErrorDialog = DocumentErrorDialog.newInstance(demoRepoResponse.getMensajeError());
@@ -470,7 +486,6 @@ public abstract class ScanActivityTemplate extends AppCompatActivity implements 
 
     @Override
     public void onBackPressed() {
-
         if (backPressTime + 2000 > System.currentTimeMillis()){
             super.onBackPressed();
             return;

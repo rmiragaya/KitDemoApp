@@ -26,12 +26,14 @@ import java.util.TimeZone;
 
 public class Tools {
 
-    private static final String VIEWPAGERPOSITION = "sharedpref";
     private static final String METADATA_CLIENT = "metadataClient";
     private static final String TAG = "Tools";
     private static final String TOKEN = "demoToken";
     private static final String DEMO = "demodemo";
 
+    /**
+     * Carga el Token en SharePreference
+     */
     public static String getTokenFromPreference(Context context){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         String tokenGuardado = sharedPreferences.getString(Tools.TOKEN, "");
@@ -39,19 +41,21 @@ public class Tools {
         return tokenGuardado;
     }
 
+    /**
+     * Guarda el Token en SharePreference
+     */
     @SuppressLint("ApplySharedPref")
     public static void saveTokenOnSharePreference(Context context, String token) {
         Log.d(TAG, "token a guardar: " + token);
-//        if (token.isEmpty()){
-//            Log.d(TAG, "URL VACIA: ERROR ");
-//            return;
-//        }
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Tools.TOKEN, token);
         editor.commit();
     }
 
+    /**
+     * Guarda la demo en SharePreference
+     */
     @SuppressLint("ApplySharedPref")
     public static void saveDemoOnSharePreference(Context ctx, Demo demoToSave){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ctx.getApplicationContext());
@@ -62,6 +66,9 @@ public class Tools {
         editor.commit();
     }
 
+    /**
+     * Carga el Token en SharePreference
+     */
     public static Demo getDemoFromSharePreference(Context context){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         String demoJson = sharedPreferences.getString(Tools.DEMO, "");
@@ -72,6 +79,9 @@ public class Tools {
         return demoGuardado;
     }
 
+    /**
+     * Guarda la metadata del cliente en SharePreference
+     */
     @SuppressLint("ApplySharedPref")
     public static void saveMetadataClientSharePreference(Context context, MetadataClient metadataClient){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
@@ -82,6 +92,9 @@ public class Tools {
         editor.commit();
     }
 
+    /**
+     * Carga la metadata del cliente en SharePreference
+     */
     public static MetadataClient getMetadataClientSharePreference(Context context){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         String metadataJson = sharedPreferences.getString(Tools.METADATA_CLIENT, "");
@@ -92,6 +105,10 @@ public class Tools {
         return metadataClient;
     }
 
+    /**
+     * Como existe una diferencia entre el formato Date de android con el de la api
+     * necesitamos de este metodo para convertirlo al pasar entre uno y otro
+     */
     public static String convertDateTimeInDateString(String dateTimeString) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH);
         Date date = null;
@@ -107,6 +124,10 @@ public class Tools {
         return convetDateFormat.format(date);
     }
 
+    /**
+     * Como existe una diferencia entre el formato Date de android con el de la api
+     * necesitamos de este metodo para convertirlo al pasar entre uno y otro
+     */
     public static String convertDateStringInDateTime(long milliseconds){
         Log.d(TAG, "milliseconds " + milliseconds);
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
@@ -119,6 +140,10 @@ public class Tools {
         return sdf.format(calendar.getTime());
     }
 
+    /**
+     * Compruba si la demo es valida o no
+     *
+     */
     //todo sacar los textos de strings value
     public static DemoRepoResponse validarDemo(DemoRepoResponse demoResponseLData){
         Log.d(TAG, "validarDemo: call");
@@ -132,20 +157,6 @@ public class Tools {
         }
         return demoResponseLData;
     }
-
-//    @SuppressLint("ApplySharedPref")
-//    public static void saveViewPagerPosition(Context context, int position){
-//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putInt(Tools.VIEWPAGERPOSITION, position);
-//        editor.commit();
-//    }
-//
-//    public static int getViewPagerPosition(Context context){
-//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-//        return sharedPreferences.getInt(Tools.VIEWPAGERPOSITION, 0);
-//    }
-
 
     /**
      * Delete all pdf and tiff files

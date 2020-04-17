@@ -16,6 +16,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Every Activity that have "scan" properties must extend from "ScanActivityTemplate"
+ */
 public class ScanQrAndBarCodeActivity extends ScanActivityTemplate implements DigitalizarQroBarcodeDialog.DigitalizarQroBarcodeDialogListener {
 
     private static final String TAG = "QrAndBarCodeActivity";

@@ -27,6 +27,11 @@ import com.rodrigo.kitdemoapp.Utils.StatusResponse;
 import com.rodrigo.kitdemoapp.Utils.Tools;
 import com.rodrigo.kitdemoapp.ViewModel.IntroVM;
 
+/**
+ * launcher Activity
+ * se encagadar de cargar el token y la demo
+ * una vez hecho esto pasa a la siguiente actividad
+ */
 public class IntroActivity extends AppCompatActivity implements NewTokenDialog.NewTokenDialogListener,
         DemoErrorDialog.DemoErrorListener {
     private static final String TAG = "IntroActivity";
@@ -55,6 +60,8 @@ public class IntroActivity extends AppCompatActivity implements NewTokenDialog.N
 
     }
 
+    /**
+     * Obtiene el token del link, en caso de haber iniciado la app de esa manera */
     private void getLinkIntent() {
         // ATTENTION: This was auto-generated to handle app links.
         Intent appLinkIntent = getIntent();

@@ -18,6 +18,9 @@ import org.beyka.tiffbitmapfactory.TiffSaver;
 
 import java.util.List;
 
+/**
+ * Convierte una lista de Bitmaps en TIFF, necesario para enviar la imagen a la API
+ * */
 public class ConvertImageInTiff extends AsyncTask<Void, Void, Void> {
     private static final String TAG = "ConvertImageInTiff";
 
@@ -46,7 +49,6 @@ public class ConvertImageInTiff extends AsyncTask<Void, Void, Void> {
         //By default orientation is top left
         options.orientation = Orientation.LEFT_TOP;
 
-
         for (Bitmap b : this.bitmap){
             Bitmap current;
             current = b;
@@ -65,41 +67,7 @@ public class ConvertImageInTiff extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         Log.d(TAG, "onPostExecute: call");
         super.onPostExecute(aVoid);
-//        mContext.get().onImageConvert(this.pathFileName);
         listener.onImageConvert(this.pathFileName);
-    }
-
-    private Bitmap convertToMono(Bitmap bitmapColor){
-        Log.d(TAG, "convertToMono: call\nBitMapWidth: " + bitmapColor.getWidth() + " BitmapHeight: " + bitmapColor.getHeight() );
-        Bitmap bmpMonochrome = Bitmap.createBitmap(bitmapColor.getWidth(), bitmapColor.getHeight(), Bitmap.Config.ALPHA_8);
-        Canvas canvas = new Canvas(bmpMonochrome);
-        ColorMatrix ma = new ColorMatrix();
-        ma.setSaturation(0);
-        Paint paint = new Paint();
-        paint.setColorFilter(new ColorMatrixColorFilter(ma));
-        canvas.drawBitmap(bitmapColor, 0, 0, paint);
-        return bitmapColor;
-    }
-
-    private static Bitmap resize(Bitmap image, int maxWidth, int maxHeight) {
-        if (maxHeight > 0 && maxWidth > 0) {
-            int width = image.getWidth();
-            int height = image.getHeight();
-            float ratioBitmap = (float) width / (float) height;
-            float ratioMax = (float) maxWidth / (float) maxHeight;
-
-            int finalWidth = maxWidth;
-            int finalHeight = maxHeight;
-            if (ratioMax > 1) {
-                finalWidth = (int) ((float) maxHeight * ratioBitmap);
-            } else {
-                finalHeight = (int) ((float) maxWidth / ratioBitmap);
-            }
-            image = Bitmap.createScaledBitmap(image, finalWidth, finalHeight, true);
-            return image;
-        } else {
-            return image;
-        }
     }
 
 }

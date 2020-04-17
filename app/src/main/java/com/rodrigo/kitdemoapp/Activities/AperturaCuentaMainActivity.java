@@ -49,6 +49,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+
+/**
+ * Toma todos los imputs del usuario y guarda esa Metadata
+ * */
 public class AperturaCuentaMainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener,
                                                                                 BuscarIdDialog.BuscarIdDialogListener,
                                                                                     DatePickerDialog.OnDateSetListener {
@@ -79,7 +83,6 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
         String nombreEmpresa = demo.getClient();
         String logoEnString = demo.getLogo();
 
-
         if (nombreEmpresa!=null && !nombreEmpresa.isEmpty()){
             TextView nombreEmpresaTextView = findViewById(R.id.nombreEmpresa);
             nombreEmpresaTextView.setText(nombreEmpresa);
@@ -93,7 +96,6 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
             }
         }
 
-//        initToolbar();
         razonSocial = findViewById(R.id.editTextRazonSocialId);
         mail = findViewById(R.id.edittextMailId);
         femenino = findViewById(R.id.femeninoRadioBtn);
@@ -238,9 +240,7 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
         if (razonSocial.getText().toString().trim().isEmpty()){
             return false;
         }
-
         return !mailParaVerificar.isEmpty();
-
     }
 
     private boolean esMailValido(CharSequence target){
@@ -260,7 +260,6 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
         String fecha = Tools.convertDateStringInDateTime(dateGuardada.getTime());
         Log.d(TAG, "fecha: " + fecha);
 
-
         MetadataClient metadataCliente = new MetadataClient(razonSocialIngresad,mailIngresado,sexoIngresado, paisSeleccionado,null, null, null, fecha);
 
         // se guarda la Metadata
@@ -276,7 +275,6 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
 
         // se guarda la Demo
         aperturaCuentaVM.saveDemo(demo);
-
     }
 
     private String getRadioBtnSelected() {
@@ -287,7 +285,6 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
             Log.d(TAG, "masculino");
             return masculino.getText().toString();
         } else return noEspecifica.getText().toString();
-
     }
 
     @Override
@@ -370,15 +367,6 @@ public class AperturaCuentaMainActivity extends AppCompatActivity implements Ada
         dateGuardada = c.getTime();
         calendar.setText(fecha);
     }
-
-//    @Override
-//    public void onBackPressed() {
-//        Intent intent = new Intent(this, Select_App_Activity.class);
-//        startActivity(intent);
-//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-//        finish();
-//    }
-
 
     private void llenarCampos(Cliente demoCliente) {
         if (demoCliente.getBusinessName() != null) {

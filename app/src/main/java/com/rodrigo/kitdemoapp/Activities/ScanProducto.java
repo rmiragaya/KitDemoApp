@@ -21,6 +21,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Every Activity that have "scan" properties must extend from "ScanActivityTemplate"
+ */
 public class ScanProducto extends ScanActivityTemplate implements AltaBajaModificacionFragment.OnFragmentInteractionListener,
         BajaDialog.DigitalizarBajaDialogListener,
 AltaDialog.DigitalizarAltaProductoDialogListener,

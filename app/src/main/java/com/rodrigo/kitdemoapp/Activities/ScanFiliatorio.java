@@ -21,7 +21,6 @@ import java.util.List;
 /**
  * Every Activity that have "scan" properties must extend from "ScanActivityTemplate"
  */
-
 public class ScanFiliatorio extends ScanActivityTemplate implements DocuFiliaDialog.DocuFiliaDialogInterface{
 
     private static final String NUMDIALOGS = "numdialogs";
@@ -36,7 +35,6 @@ public class ScanFiliatorio extends ScanActivityTemplate implements DocuFiliaDia
     private int archivosSubidos;
 
     private String title;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,8 +121,6 @@ public class ScanFiliatorio extends ScanActivityTemplate implements DocuFiliaDia
         DocumentViewModel dvm = new DocumentViewModel(Integer.toString(demo.getId()),"Filiation", demo.getClientNameNew(),null, demo.getClient() ,metadataClient);
         dvm.setDemoId(Integer.toString(demo.getId()));
 
-        //esto va?
-
         if (demo.getClientNameNew()!=null){
             dvm.setClient(demo.getClientNameNew());
         }
@@ -192,4 +188,5 @@ public class ScanFiliatorio extends ScanActivityTemplate implements DocuFiliaDia
     public String getActivityTitle() {
         return title;
     }
+
 }

@@ -34,6 +34,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Actividad que muestra los documentos de la demo (obtenidos en la actividad anterior)
+ */
 public class DocumentPreviewActivity extends AppCompatActivity implements DocuFiliaFragment2.DocuFiliaFragmentListener,
                                                                             PdfViewerFragment.OnFragmentInteractionListener{
     private static final String TAG = "DocumentPreviewActivity";

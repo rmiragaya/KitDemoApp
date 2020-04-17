@@ -79,7 +79,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.AperturaCuentaMainActivity" />
-        <activity android:name=".Activities.MainActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

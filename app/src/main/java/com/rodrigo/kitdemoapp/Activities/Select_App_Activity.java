@@ -38,6 +38,9 @@ import com.rodrigo.kitdemoapp.ViewModel.SelectAppVM;
 
 import java.util.ArrayList;
 
+/**
+ * Actividad con viewPager para seleccionar entre las 4 aplicaciones principales
+ */
 public class Select_App_Activity extends AppCompatActivity implements BottomSheetFragment.BottomSheetListener, DeleteTokenDialog.DeleteTokenListener {
     private static final String TAG = "Select_App_Activity";
 
@@ -104,11 +107,7 @@ public class Select_App_Activity extends AppCompatActivity implements BottomShee
 //        viewPager.setCurrentItem(Tools.getViewPagerPosition(this));
 
         selectAppVM = ViewModelProviders.of(this).get(SelectAppVM.class);
-
-
     }
-
-
 
     private void bottomProgressDots(int current_index) {
         LinearLayout dotsLayout = findViewById(R.id.layoutDots);
@@ -250,6 +249,9 @@ public class Select_App_Activity extends AppCompatActivity implements BottomShee
         }
     }
 
+    /**
+     * Obtiene los documentos de la demo de la API
+     */
     private void getListaDocumentos() {
         selectAppVM.init();
         selectAppVM.getClienteResponseLiveData().observe(this, new Observer<DocumentsRepoResponse>() {

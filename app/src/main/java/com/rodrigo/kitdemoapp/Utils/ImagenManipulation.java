@@ -14,17 +14,31 @@ import android.util.Base64;
 import com.rodrigo.kitdemoapp.Models.SliderItem;
 import com.rodrigo.kitdemoapp.R;
 
+/**
+ *
+ */
 public class ImagenManipulation {
 
+    /**
+     * Pasa de string a bitmap
+     * @param logoEnString el logo de la empresa en String
+     * @return Bitmap
+     */
         public static Bitmap loadImage(String logoEnString){
-
             byte[] decodeString = Base64.decode(logoEnString, Base64.DEFAULT);
             return BitmapFactory.decodeByteArray(decodeString, 0 , decodeString.length);
         }
 
-
+    /**
+     * La imagen que le pasemos, la ajusta a los tamaños maximos SIN perder el aspect ratio
+     * y de fondo le pone una imagen blanca tamaño A4 sobre la cual pone la imagen centrada
+     * @param originalImage imagen original para modificar
+     * @param width ancho maximo
+     * @param height alto maximo
+     * @return imagen con los tamaños maximos (A4) con fondo blanco
+     */
         public static Bitmap resize(Bitmap originalImage, int width, int height) {
-            Bitmap background = Bitmap.createBitmap((int)width, (int)height, Bitmap.Config.ARGB_8888);
+            Bitmap background = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 
             float originalWidth = originalImage.getWidth();
             float originalHeight = originalImage.getHeight();
